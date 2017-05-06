@@ -64,20 +64,13 @@ class EagleBird extends BirdEntity{
 	}
 
 	public void target(){
-		if (ypos > Player.ypos + 10){
-			ypos -= yspeed;
-		}
-		else if (ypos < Player.ypos - 10){
-			ypos += yspeed;
-		}	
-	}
-
-	public void bulletHit(int bulletDamage){
-		if(hp - bulletDamage > 0){
-			hp -= bulletDamage;
-		}
-		else{
-			hp = 0;
+		if ((xpos - Player.xpos) < 500 && (xpos - Player.xpos) > -150){
+			if (ypos > Player.ypos + 10){
+				ypos -= yspeed;
+			}
+			else if (ypos < Player.ypos - 10){
+				ypos += yspeed;
+			}	
 		}
 	}
 }

@@ -4,17 +4,17 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Bullet {
-	int x;
-	int y;
-	int speed;
-	int size;
-	int damage;
+	public int x;
+	public int y;
+	public int speed;
+	public int size;
+	public int damage;
 	
 	boolean piercing = false;
 	boolean explosive = false;
 
-	Image img;
-	Rectangle hitbox;
+	public Image img;
+	public Rectangle hitbox;
 
 	public Bullet(int startX, int startY, int bulletSpeed, int bulletSize, int bulletDamage)
 	{

@@ -3,6 +3,9 @@ package birds;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+
+import main.EnemyBullet;
 
 
 public abstract class BirdEntity {
@@ -13,7 +16,8 @@ public abstract class BirdEntity {
 	public Rectangle hitbox;
 	public int hp;
 	public int dmg;
-
+	public ArrayList<EnemyBullet> bullets;
+	
 	public BirdEntity(int xpos, int ypos){
 		this.xpos = xpos;
 		this.ypos = ypos;
@@ -23,7 +27,14 @@ public abstract class BirdEntity {
 	
 	public abstract void draw(Graphics g);
 	
-	public abstract void bulletHit(int bulletDamage);
+	public void bulletHit(int bulletDamage){
+		if(hp - bulletDamage > 0){
+			hp -= bulletDamage;
+		}
+		else{
+			hp = 0;
+		}
+	}
 	
 
 }

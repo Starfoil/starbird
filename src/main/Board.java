@@ -19,40 +19,50 @@ public class Board extends JPanel implements ActionListener{
 	final int scrollSpeed = 2;
 
 	static int score=0;
-
-	Bluejay b;
-	Eagle e;
-	Hawk h;
+	
+	static ArrayList<BirdManager> birds = new ArrayList<BirdManager>();
 	
 	CollisionManager CM;
 
 	// Constructor
 	public Board() throws InterruptedException {
+		setupObjects();
+		setupBackground();
+		setupGameSystem();		
+	}
+	
+	public void setupObjects(){
 		p = new Player();
-		addKeyListener(new AL());
-		setFocusable(true);
-
+		
+		// Enemy Spawn
+		birds.add(new Bluejay(40, 30000, 500));
+		birds.add(new Eagle(12, 20000, 12000));
+		birds.add(new Bomber(8, 12000, 18000));
+		birds.add(new Buzzer(75, 20000, 3000));
+		birds.add(new Hawk(16, 24000, 10000));
+		birds.add(new Spoder(4, 20000, 5000));
+		birds.add(new Blackbird(1, 0, 1000));
+		
+	}
+	
+	public void setupBackground(){
 		this.backgroundPos1 = 0;
 		this.backgroundPos2 = 1200;
-
 		ImageIcon i = new ImageIcon("resources\\test.jpg");
 		backgroundImg = i.getImage();
-
+	}
+	
+	public void setupGameSystem(){
+		CM = new CollisionManager(p);
+		for (BirdManager bm : birds){
+			CM.addEnemy(bm);
+		}
+		addKeyListener(new AL());
+		setFocusable(true);
 		time = new Timer(15, this);
 		time.start();
-
-		// Enemy Spawn
-		b = new Bluejay(50, 15000, 500);
-		e = new Eagle(25, 20000, 1000);
-		h = new Hawk(25, 20000, 1000);
-		
-		// Collision management system
-		CM = new CollisionManager(p);
-		CM.addEnemy(b);
-		CM.addEnemy(e);
-		CM.addEnemy(h);
 	}
-
+	
 	public void updateBackground(){
 		if (backgroundPos1 > 1200){
 			backgroundPos1 = 0;
@@ -65,8 +75,7 @@ public class Board extends JPanel implements ActionListener{
 	// During each timer tick
 	public void actionPerformed(ActionEvent e) {
 		p.update();
-		CM.bulletCollision();
-		CM.playerCollision();
+		CM.collisionCheck();
 		updateBackground();
 		repaint();
 	}
@@ -88,10 +97,10 @@ public class Board extends JPanel implements ActionListener{
 		// Draw player
 		p.draw(g);
 		
-		// Draw enemies (call once)
-		e.draw(g);
-		h.draw(g);
-		b.draw(g);
+		// Draw enemies
+		for (BirdManager bm : birds){
+			bm.draw(g);
+		}
 
 	}
 
@@ -104,64 +113,5 @@ public class Board extends JPanel implements ActionListener{
 			p.keyPressed(e);
 		}
 	}
-
-
-
-	//	ArrayList bullets = Player.getBullets();
-	//	for (int w = 0; w < bullets.size(); w++)
-	//	{
-	//		Bullet m = (Bullet) bullets.get(w);//draw:
-	//		if (m.getVisible() == true)
-	//		{
-	//			m.move();
-	//			for(int i = 0; i<manager.amount;i++){
-	//				if(m.hitbox.intersects(manager.enemies.get(i).hb)){
-	//					if(manager.enemies.get(i).hp>0){
-	//						if((manager.enemies.get(i).hp-25>=0)){
-	//							manager.enemies.get(i).hp=manager.enemies.get(i).hp-25;
-	//							bullets.remove(w);
-	//							manager.enemies.get(i).hittaken++;
-	//							//System.out.println("HIT!");
-	//						}
-	//					}
-	//				}		
-	//			}
-	//			for(int i = 0; i<manager1.amount;i++){
-	//				if(m.hitbox.intersects(manager1.enemies.get(i).hb)){
-	//					if(manager1.enemies.get(i).hp>0){
-	//						if((manager1.enemies.get(i).hp-25>=0)){
-	//							manager1.enemies.get(i).hp=manager1.enemies.get(i).hp-25;
-	//							bullets.remove(w);
-	//							manager1.enemies.get(i).hittaken++;
-	//						}
-	//					}
-	//				}		
-	//			}
-	//			for(int i = 0; i<manager2.amount;i++){
-	//				if(m.hitbox.intersects(manager2.enemies.get(i).hb)){
-	//					if(manager2.enemies.get(i).hp>0){
-	//						if((manager2.enemies.get(i).hp-25>=0)){
-	//							manager2.enemies.get(i).hp=manager2.enemies.get(i).hp-25;
-	//							bullets.remove(w);
-	//							manager2.enemies.get(i).hittaken++;
-	//						}
-	//					}
-	//				}		
-	//			}
-	//			for(int i = 0; i<manager3.amount;i++){
-	//				if(m.hitbox.intersects(manager3.enemies.get(i).hb)){
-	//					if(manager3.enemies.get(i).hp>0){
-	//						if((manager3.enemies.get(i).hp-25>=0)){
-	//							manager3.enemies.get(i).hp=manager3.enemies.get(i).hp-25;
-	//							bullets.remove(w);
-	//							manager3.enemies.get(i).hittaken++;
-	//						}
-	//					}
-	//				}		
-	//			}
-	//		}
-	//		else bullets.remove(w);
-	//	}	
-
 
 }

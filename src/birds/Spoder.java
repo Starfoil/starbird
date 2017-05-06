@@ -6,10 +6,9 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 
-public class Hawk extends BirdManager{
+public class Spoder extends BirdManager{
 
-
-	public Hawk(int spawnSize, int spawnDeviation, int spawnDistance){
+	public Spoder(int spawnSize, int spawnDeviation, int spawnDistance){
 		super(spawnSize, spawnDeviation, spawnDistance);
 		spawn();
 	}
@@ -18,24 +17,24 @@ public class Hawk extends BirdManager{
 		for(int i=0; i < spawnSize; i++){
 			int xspawn = ((int)(Math.random() * spawnDeviation) + spawnDistance);
 			int yspawn = ((int)(Math.random()*500) + 100);
-			spawnList.add(new HawkBird(xspawn, yspawn));
+			spawnList.add(new SpoderBird(xspawn, yspawn));
 		}
 	}
 }
 
-class HawkBird extends BirdEntity{
+class SpoderBird extends BirdEntity{
 
-	ImageIcon imgIC = new ImageIcon("resources//bbird2.png");
-	static int maxhp 	= 10;
-	static int damage 	= 30;
-	static int xspeed 	= 12;
+	ImageIcon imgIC = new ImageIcon("resources//poibird.png");
+	static int maxhp 	= 120;
+	static int damage 	= 75;
+	static int xspeed 	= 2;
 	static int yspeed 	= 0;
-	static int size 	= 50;
+	static int size 	= 120;
 
-	public HawkBird(int x, int y) {
+	public SpoderBird(int x, int y) {
 		super(x, y);
 		img = imgIC.getImage();
-		hitbox = new Rectangle(x + 10, y +10 , 2 * size, size);
+		hitbox = new Rectangle(x + 10, y, size, size);
 		hp = maxhp;
 		dmg = damage;
 	}
@@ -46,16 +45,16 @@ class HawkBird extends BirdEntity{
 		g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 
 		g.setColor(Color.red);
-		g.fillRect(xpos + 50, ypos + 70, maxhp, 5);
+		g.fillRect(xpos + 10, ypos + 120, maxhp, 5);
 
 		g.setColor(Color.green);
-		g.fillRect(xpos + 50, ypos + 70, hp, 5);
+		g.fillRect(xpos + 10, ypos + 120, hp, 5);
 
 	}
 
 	public void move() {
 		xpos -= xspeed;
-		hitbox.setLocation(xpos - xspeed + 10, ypos + 10);
+		hitbox.setLocation(xpos - xspeed + 10, ypos);
 	}
 
 }

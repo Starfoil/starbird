@@ -56,15 +56,6 @@ class BluejayBird extends BirdEntity{
 		xpos -= xspeed;
 		hitbox.setLocation(xpos - xspeed + 10, ypos + 10);
 	}
-	
-	public void bulletHit(int bulletDamage){
-		if(hp - bulletDamage > 0){
-			hp -= bulletDamage;
-		}
-		else{
-			hp = 0;
-		}
-	}
 
 }
 
