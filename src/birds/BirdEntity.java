@@ -3,29 +3,46 @@ package birds;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import main.EnemyBullet;
+import main.Bullet;
+import main.Player;
 
 
-public abstract class BirdEntity {
+public abstract class BirdEntity implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7841407624858503953L;
+	/**
+	 * 
+	 */
+	public int eID;
 	public Image img;
 	public int xpos;
 	public int ypos;
 	public Rectangle hitbox;
 	public int hp;
 	public int dmg;
-	public ArrayList<EnemyBullet> bullets;
+	public ArrayList<Bullet> bullets;
+	public Player playerTarget = null;
+	public int targetRange = -1;
+	public boolean boss = false;
+	public boolean targetable = true;
+	public int targetPriority = 5;
 	
-	public BirdEntity(int xpos, int ypos){
+	public BirdEntity(int eID, int xpos, int ypos){
+		this.eID = eID;
 		this.xpos = xpos;
 		this.ypos = ypos;
 	}
 
 	public abstract void move();
 	
-	public abstract void draw(Graphics g);
+	public abstract void draw(Graphics g, Image[] birdImages);
+	
 	
 	public void bulletHit(int bulletDamage){
 		if(hp - bulletDamage > 0){
@@ -36,5 +53,16 @@ public abstract class BirdEntity {
 		}
 	}
 	
+	public boolean isDead(){
+		return (hp <= 0);
+	}
+	
+	public void update(){
+		move();
+	}
+	
+	public String toString(){
+		return Integer.toString(this.eID);
+	}
 
 }

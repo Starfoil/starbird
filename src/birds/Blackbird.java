@@ -1,6 +1,7 @@
 package birds;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -8,10 +9,14 @@ import javax.swing.ImageIcon;
 
 import main.Bullet;
 import main.EnemyBullet;
-import main.Player;
 
 
 public class Blackbird extends BirdManager{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4176426524354413155L;
 
 	public Blackbird(int spawnSize, int spawnDeviation, int spawnDistance){
 		super(spawnSize, spawnDeviation, spawnDistance);
@@ -21,13 +26,17 @@ public class Blackbird extends BirdManager{
 	public void spawn(){
 			int xspawn = ((int)(Math.random() * spawnDeviation) + spawnDistance);
 			int yspawn = 120;
-			spawnList.add(new BlackbirdBird(xspawn, yspawn));
+			spawnList.add(new BlackbirdBird(8, xspawn, yspawn));
 	}
 }
 
 class BlackbirdBird extends BirdEntity{
 
-	ImageIcon imgIC = new ImageIcon("resources//BossBird.png");
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5307047519957227432L;
+	//ImageIcon imgIC = new ImageIcon("resources//BossBird.png");
 	static final int maxhp 	= 750;
 	static final int damage 	= 999;
 	static final int xspeed 	= 5;
@@ -36,6 +45,7 @@ class BlackbirdBird extends BirdEntity{
 	static final int zigOffset = 300;
 	static final int shootFreq = 30;
 	static final int modeFreq = 1000;
+	static final int range = 1200;
 
 	private int offsetZig;
 	private int zigDest;
@@ -48,18 +58,21 @@ class BlackbirdBird extends BirdEntity{
 	private int modeCounter = 0;
 
 	
-	public BlackbirdBird(int x, int y) {
-		super(x, y);
-		img = imgIC.getImage();
+	public BlackbirdBird(int eID, int x, int y) {
+		super(eID, x, y);
+		//img = imgIC.getImage();
 		hitbox = new Rectangle(x + 10, y + 10, size, size);
 		hp = maxhp;
 		dmg = damage;
-		bullets = new ArrayList<EnemyBullet>();
+		bullets = new ArrayList<Bullet>();
+		targetRange = range;
+		boss = true;
+		//targetable = false;
+		targetPriority = 0;
 	}
 
-	public void draw(Graphics g){
+	public void draw(Graphics g, Image[] birdImages){
 		g.setColor(Color.blue);
-		g.drawImage(img, xpos, ypos, null);
 		g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 		
 		if(engage){
@@ -68,6 +81,9 @@ class BlackbirdBird extends BirdEntity{
 			g.setColor(Color.green);
 			g.fillRect(230, 75, hp, 10);
 		}
+		
+		Image img = birdImages[eID];
+		if (img != null) g.drawImage(img, xpos, ypos, null);
 
 		for (Bullet b : bullets){
 			b.draw(g);
@@ -89,7 +105,7 @@ class BlackbirdBird extends BirdEntity{
 
 
 	public void move() {
-		if(xpos - Player.xpos > 800 && !engage){
+		if(!engage && xpos > 900){
 			xpos -= xspeed;
 		}
 		else if(engage){
@@ -130,11 +146,11 @@ class BlackbirdBird extends BirdEntity{
 	
 
 	public void target(){
-		if (engage){
-			if (ypos > Player.ypos + 10){
+		if (engage && playerTarget != null){
+			if (ypos > playerTarget.ypos + 10){
 				ypos -= yspeed;
 			}
-			else if (ypos < Player.ypos - 10){
+			else if (ypos < playerTarget.ypos - 10){
 				ypos += yspeed;
 			}	
 		}

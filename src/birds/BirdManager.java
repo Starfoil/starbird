@@ -1,15 +1,20 @@
 package birds;
 
-import java.awt.Graphics;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class BirdManager {
+
+public abstract class BirdManager implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7974164924154596242L;
 	public ArrayList<BirdEntity> spawnList;
 	public int spawnSize;
 	public int spawnDeviation;
 	public int spawnDistance;
-
+	
 	public BirdManager(int spawnSize, int spawnDeviation, int spawnDistance){
 		this.spawnSize = spawnSize;
 		this.spawnDeviation = spawnDeviation;
@@ -17,13 +22,7 @@ public abstract class BirdManager {
 		spawnList = new ArrayList<BirdEntity>();
 	}
 	
-
-	public void draw(Graphics g){
-		for (BirdEntity e : spawnList){
-			e.move();
-			e.draw(g);
-		}
-	}
-
-
+	public abstract void spawn();
+	
+	
 }

@@ -1,31 +1,33 @@
 package main;
 
 import java.awt.Image;
-import java.awt.Rectangle;
-import java.util.ArrayList;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 
-public class Skin {
+public class Skin implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8703890902292938684L;
+	int skinID;
 	int xspeed;	
 	int yspeed;	
 	int playerSize;
-	ImageIcon II;
-	Image img;
+	public ImageIcon II;
+	public Image img;
 	
 	int xHBOffset = 0;
 	int yHBOffset = 0;
 	
 	int manaRegen = 1;
 	
-	public Skin(String skinID, int xspeed, int yspeed, int size){
+	public Skin(int skinID, int xspeed, int yspeed, int size){
+		this.skinID = skinID;
 		this.xspeed = xspeed;
 		this.yspeed = yspeed;
 		this.playerSize = size;
-		II = new ImageIcon("resources\\"+skinID+".png");
-		img = II.getImage();
-				
 	}
 	
 	public void setOffset(int x, int y){

@@ -2,89 +2,87 @@ package main;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 
 //Static Class. Does not have to be instanced.
-public class Player {
-	//Image img;
-
+public class Player implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3316827426786034879L;
+	public String ID;
+	
 	boolean left = false, right = false, up = false, down = false;
 	boolean basicFire = false, pierceFire = false, explosiveFire = false, collateralFire = false;
 	
-	public static int xpos;
-	public static int ypos;
+	public int xpos;
+	public int ypos;
 	
 	public Skin skin;
 
-	//int xspeed = 4;		// move x speed
-	//int yspeed = 4;		// move y speed
 
 	int maxMana = 400;
 	int maxHealth = 300;
 	int mana = maxMana;
-	int health = maxHealth;
+	public int health = maxHealth;
 
-	Rectangle hitbox;
-	//int playerSize = 100;
+	public Rectangle hitbox;
+	public ArrayList<Bullet> bullets;
 
-	ArrayList<Bullet> bullets;
-
-	//ImageIcon s = new ImageIcon("resources\\Player.png");
-	
 	int cooldown = 0;
 	int cooldownCap = 10;
 
-	public Player() {
+	public Player(String ID) {
+		this.ID = ID;
 		xpos = 100;
 		ypos = 300;
-		skin = new Skin("Player", 4, 4, 100);
+		skin = new Skin(0, 4, 4, 100);
 		hitbox = new Rectangle(xpos, ypos, skin.playerSize,  skin.playerSize);
 		bullets = new ArrayList<Bullet>();
 	}
 	
+	public Player(String ID, int xspawn, int yspawn) {
+		this.ID = ID;
+		xpos = xspawn;
+		ypos = yspawn;
+		skin = new Skin(0, 4, 4, 100);
+		hitbox = new Rectangle(xpos, ypos, skin.playerSize,  skin.playerSize);
+		bullets = new ArrayList<Bullet>();
+	}
+	
+	
 	public void changeSkin(){
-		skin = new Skin("Player1", 8, 6, 75);
+		skin = new Skin(1, 8, 6, 75);
 		skin.setOffset(20, 15);
 		skin.setManaRegen(5);
 		hitbox = new Rectangle(xpos, ypos, skin.playerSize + 20,  skin.playerSize);
 	}
 
-	public void draw(Graphics g){
-		// Information
-		g.setFont(new Font("Arial", Font.PLAIN, 12)); 
-		g.drawString("X :"+xpos,40,550);
-		g.drawString("Y :"+ypos,40,570);
-
-		// Health and mana bars
-		g.setColor(Color.red);
-		g.fillRect(750,20,maxMana,10);
-		g.fillRect(50,20,maxHealth,10);
-		g.setColor(Color.blue);
-		g.fillRect(750, 20, mana, 10);
-		g.setColor(Color.green);
-		g.fillRect(50,20,health,10);
-
+	public void draw(Graphics g, Image[] playerImages, Image[] bulletImages){
 		// Player
-		g.drawImage(skin.img, xpos, ypos, null);
-		g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
-		
-		// Bullets
-		for (Bullet b : bullets){
-			b.draw(g);
-		}
+		if (health > 0){
+			Image img = playerImages[skin.skinID];
+			if (img != null)	g.drawImage(img, xpos, ypos, null);
+			g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+			
+			// Bullets
+			for (Bullet b : bullets){
+				b.draw(g, bulletImages);
+			}	
+		}	
 	}
+	
 
 	public void basicFire()//Method to run when when fired
 	{	
 		int manaCost = 30;
 		if(mana > manaCost){
-			Bullet z = new Bullet(xpos + 75 , ypos + 30 , 10, 40, 10);
+			Bullet z = new Bullet(0, xpos + 75 , ypos + 30 , 10, 40, 10);
 			bullets.add(z);
 			mana = mana - manaCost;
 			z.explosive = true;
-			z.setImage("resources\\bullet.png");
 		}	
 	}
 	
@@ -92,11 +90,10 @@ public class Player {
 	{	
 		int manaCost = 60;
 		if(mana > manaCost){
-			Bullet z = new Bullet(xpos + 75 , ypos + 30 , 12, 40, 2);
+			Bullet z = new Bullet(1, xpos + 75 , ypos + 30 , 12, 40, 2);
 			bullets.add(z);
 			mana = mana - manaCost;
 			z.piercing = true;
-			z.setImage("resources\\bullet1.png");
 		}	
 	}
 	
@@ -104,11 +101,10 @@ public class Player {
 	{	
 		int manaCost = 120;
 		if(mana > manaCost){
-			Bullet z = new Bullet(xpos, ypos, 8, 100, 100);
+			Bullet z = new Bullet(2, xpos, ypos, 8, 100, 100);
 			bullets.add(z);
 			mana = mana - manaCost;
 			z.explosive = true;
-			z.setImage("resources\\bullet4.png");
 		}	
 	}
 	
@@ -116,19 +112,20 @@ public class Player {
 	{
 		int manaCost = 280;
 		if(mana > manaCost){
-			Bullet z = new Bullet(xpos, ypos, 8, 100, 5);
+			Bullet z = new Bullet(3, xpos, ypos, 8, 100, 5);
 			bullets.add(z);
 			mana = mana - manaCost;
 			z.piercing = true;
-			z.setImage("resources\\bullet5.png");
 		}	
 	}
 	
 	public void update(){
-		move();
-		updateMana();
-		updateBullets();
-		shoot();
+		if (health > 0){
+			move();
+			updateMana();
+			updateBullets();
+			shoot();
+		}	
 	}
 
 	public void move() {
@@ -211,6 +208,10 @@ public class Player {
 		if (key == KeyEvent.VK_Z)		pierceFire = false;
 		if (key == KeyEvent.VK_X)		explosiveFire = false;
 		if (key == KeyEvent.VK_C)		collateralFire = false;
+	}
+	
+	public String toString(){
+		return this.ID + " : [" + health + " | " + xpos + ", " + ypos + "]";
 	}
 
 }

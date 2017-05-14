@@ -1,12 +1,16 @@
 package birds;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
-
-import javax.swing.ImageIcon;
 
 
 public class Buzzer extends BirdManager{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public Buzzer(int spawnSize, int spawnDeviation, int spawnDistance){
 		super(spawnSize, spawnDeviation, spawnDistance);
@@ -17,14 +21,18 @@ public class Buzzer extends BirdManager{
 		for(int i=0; i < spawnSize; i++){
 			int xspawn = ((int)(Math.random() * spawnDeviation) + spawnDistance);
 			int yspawn = ((int)(Math.random() * 800));
-			spawnList.add(new BuzzerBird(xspawn, yspawn));
+			spawnList.add(new BuzzerBird(3, xspawn, yspawn));
 		}
 	}
 }
 
 class BuzzerBird extends BirdEntity{
 
-	ImageIcon imgIC = new ImageIcon("resources//Bee.png");
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	//ImageIcon imgIC = new ImageIcon("resources//Bee.png");
 	static int maxhp 	= 10;
 	static int damage 	= 15;
 	static int xspeed 	= 6;
@@ -37,24 +45,25 @@ class BuzzerBird extends BirdEntity{
 	private boolean zigUp = false;
 	private boolean zigDown = false;
 
-	public BuzzerBird(int x, int y) {
-		super(x, y);
-		img = imgIC.getImage();
+	public BuzzerBird(int eID, int x, int y) {
+		super(eID, x, y);
 		hitbox = new Rectangle(x + 10, y + 10, size, size);
 		hp = maxhp;
 		dmg = damage;
+		targetable = false;
 	}
 
-	public void draw(Graphics g){
+	public void draw(Graphics g, Image[] birdImages){
 		g.setColor(Color.blue);
-		g.drawImage(img, xpos, ypos, null);
 		g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 
 		g.setColor(Color.red);
 		g.fillRect(xpos + 30, ypos + 60, maxhp, 5);
-
 		g.setColor(Color.green);
 		g.fillRect(xpos + 30, ypos + 60, hp, 5);
+		
+		Image img = birdImages[eID];
+		if (img != null) g.drawImage(img, xpos, ypos, null);
 
 	}
 

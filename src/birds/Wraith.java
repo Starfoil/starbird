@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 
 
 
-public class Eagle extends BirdManager{
+public class Wraith extends BirdManager{
 
 
 	/**
@@ -15,7 +15,7 @@ public class Eagle extends BirdManager{
 	private static final long serialVersionUID = -1793779944528102072L;
 
 
-	public Eagle(int spawnSize, int spawnDeviation, int spawnDistance){
+	public Wraith(int spawnSize, int spawnDeviation, int spawnDistance){
 		super(spawnSize, spawnDeviation, spawnDistance);
 		spawn();
 	}
@@ -24,48 +24,48 @@ public class Eagle extends BirdManager{
 	public void spawn(){
 		for(int i=0; i < spawnSize; i++){
 			int xspawn = ((int)(Math.random() * spawnDeviation) + spawnDistance);
-			int yspawn = ((int)(Math.random()*500) + 100);
-			spawnList.add(new EagleBird(2, xspawn, yspawn));
+			int yspawn = ((int)(Math.random() * 500) + 100);
+			spawnList.add(new WraithBird(1, xspawn, yspawn));
 		}
 	}
 }
 
-class EagleBird extends BirdEntity{
+class WraithBird extends BirdEntity{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -754602130832876678L;
 	//ImageIcon imgIC = new ImageIcon("resources//bbird.png");
-	static int maxhp 	= 25;
-	static int damage 	= 50;
-	static int xspeed 	= 5;
-	static int yspeed 	= 2;
+	static int maxhp 	= 10;
+	static int damage 	= 30;
+	static int xspeed 	= 3;
+	static int yspeed 	= 4;
 	static int size 	= 60;
-	static int range 	= 750;
+	static int range 	= 150;
 	static int priority = 1;
 
-	public EagleBird(int eID, int x, int y) {
+	public WraithBird(int eID, int x, int y) {
 		super(eID, x, y);
-		hitbox = new Rectangle(x + 10, y +10 , 2 * size, size);
+		hitbox = new Rectangle(x + 10, y +10 , size, size);
 		hp = maxhp;
 		dmg = damage;
 		targetRange = range;
-		targetPriority = priority;
+		targetable = false;
 	}
 
 	public void draw(Graphics g, Image[] birdImages){
 		g.setColor(Color.blue);
 		g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
-
-		g.setColor(Color.red);
-		g.fillRect(xpos + 50, ypos + 70, maxhp, 5);
-		g.setColor(Color.green);
-		g.fillRect(xpos + 50, ypos + 70, hp, 5);
-		
-		Image img = birdImages[eID];
-		if (img != null) g.drawImage(img, xpos, ypos, null);
-
+		if (playerTarget != null){
+			g.setColor(Color.red);
+			g.fillRect(xpos + 20, ypos + 70, maxhp, 5);
+			g.setColor(Color.green);
+			g.fillRect(xpos + 20, ypos + 70, hp, 5);
+			
+			Image img = birdImages[eID];
+			if (img != null) g.drawImage(img, xpos, ypos, null);
+		}
 	}
 
 	public void move() {
