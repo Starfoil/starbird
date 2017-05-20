@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 
+import mainGUI.SystemData;
+
 
 public class Buzzer extends BirdManager{
 
@@ -39,6 +41,7 @@ class BuzzerBird extends BirdEntity{
 	static int yspeed 	= 2;
 	static int size 	= 50;
 	static int zigOffset = 180;
+	static int score = 5;
 	
 	private int offsetZig;
 	private int zigDest;
@@ -51,11 +54,12 @@ class BuzzerBird extends BirdEntity{
 		hp = maxhp;
 		dmg = damage;
 		targetable = false;
+		scoreValue = score;
 	}
 
 	public void draw(Graphics g, Image[] birdImages){
 		g.setColor(Color.blue);
-		g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+		if (SystemData.showHitbox) g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 
 		g.setColor(Color.red);
 		g.fillRect(xpos + 30, ypos + 60, maxhp, 5);

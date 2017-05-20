@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 
+import mainGUI.SystemData;
+
 
 
 public class Eagle extends BirdManager{
@@ -44,6 +46,7 @@ class EagleBird extends BirdEntity{
 	static int size 	= 60;
 	static int range 	= 750;
 	static int priority = 1;
+	static int score = 20;
 
 	public EagleBird(int eID, int x, int y) {
 		super(eID, x, y);
@@ -52,11 +55,12 @@ class EagleBird extends BirdEntity{
 		dmg = damage;
 		targetRange = range;
 		targetPriority = priority;
+		scoreValue = score;
 	}
 
 	public void draw(Graphics g, Image[] birdImages){
 		g.setColor(Color.blue);
-		g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+		if (SystemData.showHitbox) g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 
 		g.setColor(Color.red);
 		g.fillRect(xpos + 50, ypos + 70, maxhp, 5);

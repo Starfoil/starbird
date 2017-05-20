@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import main.ClientBoard;
+import main.GameInstance;
 import main.Player;
 
 

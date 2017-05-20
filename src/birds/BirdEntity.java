@@ -32,6 +32,8 @@ public abstract class BirdEntity implements Serializable{
 	public boolean boss = false;
 	public boolean targetable = true;
 	public int targetPriority = 5;
+	public int scoreValue;
+	public boolean dropcoins = false;
 	
 	public BirdEntity(int eID, int xpos, int ypos){
 		this.eID = eID;

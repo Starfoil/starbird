@@ -1,14 +1,17 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+import mainGUI.SystemData;
 import birds.BirdEntity;
 
 public class Birdbot implements Serializable{
@@ -17,42 +20,38 @@ public class Birdbot implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -631828441655422224L;
-	int botskinID;
-	public int xpos = 75;
-	public int ypos = 200;
-	public int xspeed;
-	public int yspeed;
+	Skin skin;
+	public int xpos;
+	public int ypos;
 
-	int maxHealth = 135;
+	int maxHealth = 200;
 	public int health;
-	int cooldown = 0;
-	public int targetCooldown = 0;
-
-
 	public Rectangle hitbox;
 	public ArrayList<Bullet> bullets;
-
-	ImageIcon II;
-	Image img;
-
+	
+	int cooldown = 0;
+	
+	// Targeting
 	public BirdEntity target;
 	boolean lockedOn = false;
-
+	public int targetCooldown = 0;
+	
+	// Zig
 	boolean right = false;
 	boolean left = false;
 	int offset;
 	int destX;
 	int offsetLimit = 250;
+	
 	public boolean invincible = false;
 
-	public Birdbot(int skinID, int xspeed, int yspeed, int sizeX, int sizeY){
-		this.botskinID = skinID;
-		this.xspeed = xspeed;
-		this.yspeed = yspeed;
-		health = maxHealth;
-		//II = new ImageIcon("resources\\"+skinID+".png");
-		//img = II.getImage();
-		hitbox = new Rectangle(xpos, ypos, sizeX, sizeY);
+	public Birdbot(int skinID){
+		Random RNG = new Random();
+		this.xpos = RNG.nextInt(100) + 10;
+		this.ypos = RNG.nextInt(500) + 50;
+		this.skin = SystemData.getSkin(skinID);
+		this.health = maxHealth;
+		hitbox = new Rectangle(xpos, ypos, skin.sizeX, skin.sizeY);
 		bullets = new ArrayList<Bullet>();
 	}
 
@@ -65,6 +64,7 @@ public class Birdbot implements Serializable{
 	public void update(){
 		move();
 		shoot();
+		targetCooldown += 1;
 	}
 
 	private void move(){
@@ -96,7 +96,7 @@ public class Birdbot implements Serializable{
 		if(xpos < 25){
 			strafeRight();
 		}
-		else if(xpos > 500){
+		else if(xpos > 400){
 			strafeLeft();
 		}
 	}
@@ -107,13 +107,13 @@ public class Birdbot implements Serializable{
 			strafeRight();
 		}
 		else if(right){
-			xpos += xspeed;
+			xpos += skin.xspeed;
 			if(xpos > destX){
 				strafeLeft();
 			}
 		}
 		else if(left){
-			xpos -= xspeed;
+			xpos -= skin.xspeed;
 			if(xpos < destX){
 				strafeRight();
 			}
@@ -122,11 +122,11 @@ public class Birdbot implements Serializable{
 
 	private void moveY(){
 		if(ypos > target.ypos + 15){
-			ypos -= yspeed;
+			ypos -= skin.yspeed;
 			lockedOn = false;
 		}
 		else if(ypos < target.ypos - 15){
-			ypos += yspeed;
+			ypos += skin.yspeed;
 			lockedOn = false;
 		}
 		else{
@@ -136,21 +136,22 @@ public class Birdbot implements Serializable{
 
 	private void retreat(){
 		if(ypos > -200){
-			ypos -= yspeed;
+			ypos -= skin.yspeed;
 		}
 	}
 
 	public void draw(Graphics g, Image[] playerImages, Image[] bulletImages){
-		Image img = playerImages[botskinID];
-		if (img != null) g.drawImage(img, xpos, ypos, null);
+		g.drawImage(playerImages[skin.skinID], xpos, ypos, null);
 		
 		g.setColor(Color.white);
-		g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
-
-		g.setColor(Color.red);
-		g.fillRect(xpos, ypos + 100, maxHealth, 5);
-		g.setColor(Color.green);
-		g.fillRect(xpos, ypos + 100, health, 5);
+		if (SystemData.showHitbox) g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+		g.setFont(new Font("Arial", Font.PLAIN, 12)); g.setColor(Color.BLACK);
+		g.drawString(skin.name, xpos + skin.sizeX / 4, ypos);
+		
+//		g.setColor(Color.red);
+//		g.fillRect(xpos, ypos + 100, maxHealth, 5);
+//		g.setColor(Color.green);
+//		g.fillRect(xpos, ypos + 100, health, 5);
 
 		// Bullets
 		for (Bullet b : bullets){
@@ -159,13 +160,12 @@ public class Birdbot implements Serializable{
 	}
 
 	private void shoot(){
-		cooldown += 1;
-		targetCooldown += 1;
-		if (cooldown > 15 && target != null && lockedOn){
-			Bullet z = new Bullet(0, xpos + 75 , ypos + 30 , 10, 40, 10);
+		cooldown -= 1;
+		if (cooldown < 0 && target != null && lockedOn){
+			Bullet z = new Bullet(skin.bulletID, xpos + skin.xHBOffset , ypos + skin.yHBOffset, 
+					skin.bulletXSize, skin.bulletYSize, skin.fspeed, skin.power, skin.piercing);
 			bullets.add(z);
-			z.explosive = true;
-			cooldown = 0;
+			cooldown = 20 / skin.frate;
 		}
 		updateBullets();
 	}	
@@ -181,9 +181,10 @@ public class Birdbot implements Serializable{
 	}
 
 
-	public void updateHealth(int damageTaken){
-		if (health - damageTaken > 0){
-			health -= damageTaken;
+	public void updateHealth(int rawDamage){
+		int damageRecieved = rawDamage - (rawDamage * skin.defense) / 100;
+		if (health - damageRecieved > 0){
+			health -= damageRecieved;
 		}
 		else{
 			health = 0;

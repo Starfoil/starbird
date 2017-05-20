@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 
+import mainGUI.SystemData;
+
 
 public class Hawk extends BirdManager{
 
@@ -40,6 +42,7 @@ class HawkBird extends BirdEntity{
 	static int yspeed 	= 0;
 	static int size 	= 50;
 	static int priority = 2;
+	static int score = 15;
 
 	public HawkBird(int eID, int x, int y) {
 		super(eID, x, y);
@@ -48,11 +51,12 @@ class HawkBird extends BirdEntity{
 		hp = maxhp;
 		dmg = damage;
 		targetPriority = priority;
+		scoreValue = score;
 	}
 
 	public void draw(Graphics g, Image[] birdImages){
 		g.setColor(Color.blue);
-		g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+		if (SystemData.showHitbox) g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 
 		g.setColor(Color.red);
 		g.fillRect(xpos + 50, ypos + 70, maxhp, 5);

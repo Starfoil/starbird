@@ -11,32 +11,76 @@ public class Skin implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 8703890902292938684L;
-	int skinID;
-	int xspeed;	
-	int yspeed;	
-	int playerSize;
+	
+	public int skinID;
+	public String name;
+	
+	public int xspeed;	
+	public int yspeed;	
+	public int power;
+	public boolean piercing = false;
+	
+	public int fspeed;
+	public int frate;
+	public int defense;
+	public double manaRegen;
+	public int sizeX;
+	public int sizeY;
+	
+	public boolean canShoot = true;
+	public int bulletID;
+	public int bulletXSize;
+	public int bulletYSize;
+	
+
+	
+	public String description;
+	
 	public ImageIcon II;
 	public Image img;
 	
 	int xHBOffset = 0;
 	int yHBOffset = 0;
 	
-	int manaRegen = 1;
 	
-	public Skin(int skinID, int xspeed, int yspeed, int size){
+	
+	
+	
+	public Skin(int skinID, String name, int xspeed, int yspeed, int power,
+			int piercing, int fspeed, int frate, int defense, double manaRegen, int sizeX, int sizeY
+			) {
 		this.skinID = skinID;
+		this.name = name;
 		this.xspeed = xspeed;
 		this.yspeed = yspeed;
-		this.playerSize = size;
+		this.power = power;
+		if (piercing == 1) this.piercing = true;
+		this.fspeed = fspeed;
+		this.frate = frate;
+		this.defense = defense;
+		this.manaRegen = manaRegen;
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
 	}
 	
+	public void setFire(int shootMode, int bulletID, int bulletX, int bulletY){
+		if (shootMode == 0)		canShoot = false;
+		this.bulletID = bulletID;
+		this.bulletXSize = bulletX;
+		this.bulletYSize = bulletY;
+	}
+
 	public void setOffset(int x, int y){
 		this.xHBOffset = x;
 		this.yHBOffset = y;
 	}
 	
-	public void setManaRegen(int mana){
-		this.manaRegen = mana;
+	public void setDescription(String desc){
+		this.description = desc;
+	}
+	
+	public String toString(){
+		return this.name;
 	}
 
 }

@@ -25,6 +25,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import birds.*;
+import main.GameInstance;
+import main.GameManager;
 import main.Player;
 
 public class Server extends Thread{

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import online.ClientGame;
-import online.GameInstance;
 import birds.*;
 
 public class ClientBoard extends JPanel implements ActionListener{

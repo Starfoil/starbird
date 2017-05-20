@@ -3,6 +3,8 @@ package main;
 import java.awt.*;
 import java.io.Serializable;
 
+import mainGUI.SystemData;
+
 public class Bullet implements Serializable{
 	/**
 	 * 
@@ -13,11 +15,9 @@ public class Bullet implements Serializable{
 	public int x;
 	public int y;
 	public int speed;
-	public int size;
 	public int damage;
 	
-	public boolean piercing = false;
-	public boolean explosive = false;
+	public boolean piercing;
 	
 	public boolean live;
 	public int BPID;
@@ -25,15 +25,17 @@ public class Bullet implements Serializable{
 	public Image img;
 	public Rectangle hitbox;
 
-	public Bullet(int ID, int startX, int startY, int bulletSpeed, int bulletSize, int bulletDamage)
+	public Bullet(int ID, int startX, int startY, int bulletSizeX, int bulletSizeY,
+			int bulletSpeed, int bulletDamage, boolean piercing)
 	{	
 		this.bulletID = ID;
 		x = startX;
 		y = startY;
 		speed = bulletSpeed;
-		size = bulletSize;
 		damage = bulletDamage;
-		hitbox = new Rectangle(x, y, bulletSize, bulletSize);
+		this.piercing = piercing;
+		hitbox = new Rectangle(x, y, bulletSizeX, bulletSizeY);
+				
 		live = true;
 		BPID = (int) ((startX + startY) * Math.random()) * 100;
 	}
@@ -46,7 +48,7 @@ public class Bullet implements Serializable{
 	public void draw(Graphics g, Image[] bulletImages){
 		Image img = bulletImages[bulletID];
 		if (img != null) g.drawImage(img, x, y, null);
-		g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+		if (SystemData.showHitbox) g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 	}
 	
 	public String toString(){

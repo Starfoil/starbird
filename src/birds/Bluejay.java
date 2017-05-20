@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 
+import mainGUI.SystemData;
+
 
 
 public class Bluejay extends BirdManager{
@@ -48,6 +50,7 @@ class BluejayBird extends BirdEntity{
 	static int yspeed 	= 0;
 	static int size 	= 60;
 	static int priority = 3;
+	static int score = 10;
 
 	public BluejayBird(int eID, int x, int y) {
 		super(eID, x, y);
@@ -56,11 +59,13 @@ class BluejayBird extends BirdEntity{
 		hp = maxhp;
 		dmg = damage;
 		targetPriority = priority;
+		scoreValue = score;
+		dropcoins = true;
 	}
 
 	public void draw(Graphics g, Image[] birdImages){
 		g.setColor(Color.blue);
-		g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+		if (SystemData.showHitbox) g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 
 		g.setColor(Color.red);
 		g.fillRect(xpos + 30, ypos + 60, maxhp, 5);
