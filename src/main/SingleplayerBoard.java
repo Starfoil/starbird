@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import mainGUI.GUIPanel;
+import mainGUI.MainMenu;
+import mainGUI.PlayerData;
 import mainGUI.SystemData;
 import online.ClientGame;
 import birds.*;
@@ -39,24 +41,39 @@ public class SingleplayerBoard extends JPanel implements ActionListener{
 	}
 
 	public void setupObjects(){
-		// Players
-		p = new Player("Grayson", -100, 300);
+		p = new Player(PlayerData.currentSkin.name, -150, 300);
 		game.addPlayer(p);
-
-		// Enemy Spawn
-		game.addEnemies(new Bluejay(100, 30000, 1000));
-		game.addEnemies(new Eagle(50, 30000, 5000));
-		//game.addEnemies(new Bomber(25, 12000, 5000));
-		//game.addEnemies(new Buzzer(75, 20000, 3000));
-		game.addEnemies(new Hawk(40, 24000, 10000));
-		//GM.addEnemies(new Spoder(8, 20000, 2000));
-		//game.addEnemies(new Wraith(15, 3000, 1000));
-		//GM.addEnemies(new Blackbird(1, 0, 2500));
+		
+		
+		game.addSpawn(30, 1, 100, 100);
+		//game.addSpawn(29, 1, 300, 300);
+//		game.addSpawn(1, 5, 	100, 500);
+//		game.addSpawn(2, 2, 	500, 800);
+//		game.addSpawn(1, 5, 	600, 1000);
+//		game.addSpawn(3, 4, 	900, 1200);
+//		game.addSpawn(1, 8, 	1000, 2000);
+//		game.addSpawn(2, 3,		1500, 2000);
+//		game.addSpawn(4, 10, 	1500, 2000);
+//		game.addSpawn(1, 15, 	2000, 3500);
+//		game.addSpawn(3, 8,		2000, 2500);
+//		game.addSpawn(2, 5,		2500, 3200);
+//		game.addSpawn(3, 3,		3500, 3500);
+//		game.addSpawn(5, 1,		3700, 3700);
+//		game.addSpawn(1, 8, 	4000, 4800);
+//		game.addSpawn(2, 3, 	4400, 4600);
+//		game.addSpawn(4, 25, 	4800, 5200);
+		
 
 		// Bots
-		game.addBot(18);
-		game.addBot(21);
-		game.addBot(24);
+		//game.addBot(18);
+		//game.addBot(21);
+		//game.addBot(24);
+		//game.addBot(50);
+		//game.addBot(51);
+		//game.addBot(52);
+		//game.addBot(53);
+		//game.addBot(54);
+		//game.addBot(55);
 	}
 
 
@@ -82,18 +99,23 @@ public class SingleplayerBoard extends JPanel implements ActionListener{
 	// During each timer tick
 	public void actionPerformed(ActionEvent e) {
 		if (game.gameStatus >= 0){
-			p.update();
 			gm.performStatus();
+			p.update();
 			updateBackground();
 			repaint();
 		}else{
 			time.stop();
+			PlayerData.coins += game.coinsCollected;
+			if (game.score > PlayerData.highscore) PlayerData.highscore = game.score;
+			PlayerData.saveData();
+			MainMenu.jtp.setSelectedIndex(1);
+			MainMenu.jtp.setSelectedIndex(0);
 		}
 	}
 
 	public void paint(Graphics g) {
 		//Background
-		g.clearRect(0, 0, ClientGame.XFRAME, ClientGame.YFRAME);
+		g.clearRect(0, 0, MainMenu.XFRAME, MainMenu.YFRAME);
 		g.drawImage(SystemData.backgroundImg, 1200 - backgroundPos1, 0, null);
 		g.drawImage(SystemData.backgroundImg, 1200 - backgroundPos2, 0, null);
 
@@ -113,6 +135,7 @@ public class SingleplayerBoard extends JPanel implements ActionListener{
 		g.drawString(Integer.toString(game.score), 65, 75);
 		g.drawImage(SystemData.coinImage, 10, 100, null);
 		g.drawString(Integer.toString(game.coinsCollected), 65, 135);
+		g.drawString("Distance : " + game.distance, 10, 620);
 
 		// Draw player
 		for (Player p : game.players){
@@ -120,8 +143,8 @@ public class SingleplayerBoard extends JPanel implements ActionListener{
 		}
 
 		// Draw enemies
-		for (BirdEntity e : game.birds){
-			e.draw(g, SystemData.birdImages);
+		for (EnemyEntity e : game.birds){
+			e.draw(g);
 		}
 
 		// Draw bots

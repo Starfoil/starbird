@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import mainGUI.PlayerData;
 import mainGUI.SystemData;
@@ -26,9 +27,9 @@ public class Player implements Serializable{
 	public Skin skin;
 
 
-	double maxMana = 400;
-	double maxHealth = 400;
-	double mana = maxMana;
+	public double maxMana = 400;
+	public double maxHealth = 400;
+	public double mana = maxMana;
 	public double health = maxHealth;
 
 	public Rectangle hitbox;
@@ -72,12 +73,11 @@ public class Player implements Serializable{
 
 
 	public void fireBullet(){	
-		int manaCost = 50;
-		if(mana > manaCost){
+		if(mana >= skin.manaCost){
 			Bullet z = new Bullet(skin.bulletID, xpos + skin.xHBOffset , ypos + skin.yHBOffset, 
 					skin.bulletXSize, skin.bulletYSize, skin.fspeed, skin.power, skin.piercing);
 			bullets.add(z);
-			mana = mana - manaCost;
+			mana = mana - skin.manaCost;
 		}	
 	}
 
@@ -96,7 +96,7 @@ public class Player implements Serializable{
 
 	public void move() {
 		if (playable){
-			if (right == true && xpos < 1200 - skin.sizeX)		xpos += skin.xspeed;
+			if (right == true && xpos < 1200 - skin.sizeX)		xpos += skin.xspeed;		
 			if (left == true && xpos > 0)						xpos -= skin.xspeed;
 			if (up == true && ypos > 0)							ypos = ypos - skin.yspeed;
 			if (down == true && ypos < 650 - skin.sizeY)		ypos = ypos + skin.yspeed;
@@ -130,14 +130,25 @@ public class Player implements Serializable{
 		}
 		bullets.removeAll(removeList);
 	}
+	
+	
 
-	public void updateHealth(int rawDamage){
-		int damageRecieved = rawDamage - (rawDamage * skin.defense) / 100;
+	public void updateHealth(double rawDamage){
+		double damageRecieved = rawDamage - (rawDamage * skin.defense) / 100;
 		if (health - damageRecieved > 0){
 			health -= damageRecieved;
 		}
 		else{
 			health = 0;
+		}
+	}
+	
+	public void healHealth(int heal){
+		if (health + heal > maxHealth){
+			health = maxHealth;
+		}
+		else{
+			health += heal;
 		}
 	}
 

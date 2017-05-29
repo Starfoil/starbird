@@ -1,53 +1,63 @@
 package main;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 import mainGUI.MainMenu;
 import mainGUI.PlayerData;
-import birds.BirdEntity;
+import birds.Boss;
+import birds.EnemyEntity;
+import birds.EnemyUnit;
+import birds.Spawner;
 
 public class GameManager {
 
 	private GameInstance game;
-	
+
 
 	public GameManager(GameInstance gameInstance){
 		game = gameInstance;
 	}
 
 	public void update(){
+		spawnEnemies();
 		updateEnemies();
 		updateBots();
 		updateTargets();
 		updateObjects();
 		cleanDeadObjects();
 	}
+	
+	private void spawnEnemies(){
+		for (Spawner s : game.birdSpawn){
+			if (s.alive)	s.spawn();
+		}
+	}
 
 	public void checkCollision(){
 		checkBulletCollision();
 		checkMobCollision();
 		checkDropCollision();
+		checkPlayerDropCollision();
 	}
 
 	private void updateStatus(){
 		boolean playflag = true;
 		boolean aliveflag = false;
-		boolean gameover = true;
 		for (Player p : game.players){
 			if (!p.playable) playflag = false;
 			if (p.health > 0) aliveflag = true;
-			if (p.xpos < 1300) gameover = false;
+		}
+		boolean enemyflag = false;
+		for (Spawner s : game.birdSpawn){
+			if (s.alive) enemyflag = true;
 		}
 		if 		(game.gameStatus == 0)							game.gameStatus = 1;
 		else if (playflag && game.gameStatus == 1)				game.gameStatus = 2;
 		else if (!aliveflag && game.gameStatus == 2) 			game.gameStatus = 3;
-		else if (game.birds.isEmpty() && game.gameStatus == 2)	game.gameStatus = 4;	
-		else if ((game.gameStatus == 3 || game.gameStatus == 4)
-				&& game.gameEndTimer > 10) 					game.gameStatus = 5;
-		else if (gameover){
-			MainMenu.jtp.setSelectedIndex(1);
-			MainMenu.jtp.setSelectedIndex(0);
+		else if (!enemyflag && game.birds.isEmpty() && game.gameStatus == 2)			game.gameStatus = 4;	
+		else if ((game.gameStatus == 3 || game.gameStatus == 4) && game.gameEndTimer > 500){
 			game.gameStatus = -1;
 		}
 	}
@@ -56,13 +66,13 @@ public class GameManager {
 		if (game.gameStatus == 0){
 			Random RNG = new Random();
 			for (Player p : game.players){
-				p.movetoX = RNG.nextInt(100) + 150;
+				p.movetoX = RNG.nextInt(100) + 50;
 				p.movetoY = RNG.nextInt(450) + 75;
 			}
 		}
 		// Moving players into position
 		else if(game.gameStatus == 1){
-			for (Player p : game.players)	p.moveTo(p.movetoX, p.movetoY, 2);
+			for (Player p : game.players)	p.moveTo(p.movetoX, p.movetoY, 3);
 		}
 		// Ongoing game
 		else if(game.gameStatus == 2){
@@ -81,12 +91,8 @@ public class GameManager {
 			checkDropCollision();
 			game.gameEndTimer += 1;
 		}
-		else if(game.gameStatus == 5){
-			update();
-			checkDropCollision();
-			for (Player p : game.players) p.moveTo(1500, p.ypos, 4);
-		}
 		updateStatus();
+		game.distance++;
 	}
 
 	private void updateBots(){
@@ -96,7 +102,7 @@ public class GameManager {
 	}
 
 	private void updateEnemies(){
-		for (BirdEntity b : game.birds){
+		for (EnemyEntity b : game.birds){
 			b.update();
 		}
 	}
@@ -108,47 +114,56 @@ public class GameManager {
 	}
 
 	private void checkBulletCollision(){
-		for (BirdEntity e : game.birds){
+		for (EnemyEntity e : game.birds){
 			// Check player
-			for (int i = 0; i < game.players.size(); i++){
+			for (Player p : game.players){
 				ArrayList<Bullet> bulletRemoveList = new ArrayList<Bullet>();
-				for (Bullet b : game.players.get(i).bullets){
-					if(b.hitbox.intersects(e.hitbox)){
-						e.bulletHit(b.damage);
+				for (Bullet b : p.bullets){
+					if(b.hitbox.intersects(e.hitbox) && p.skin.fspeed != 0){
+						e.loseHealth(b.damage);
 						if(!b.piercing)	{
-							b.live = false;
 							bulletRemoveList.add(b);
 						}
 					}
 				}
-				game.players.get(i).bullets.removeAll(bulletRemoveList);
+				p.bullets.removeAll(bulletRemoveList);
+				if (e instanceof Boss){
+					ArrayList<EBullet> ebulletRemoveList = new ArrayList<EBullet>();
+					for (EBullet b : e.bullets){
+						if(b.hitbox.intersects(p.hitbox)){
+							p.updateHealth(b.damage);
+							if(!b.piercing)	ebulletRemoveList.add(b);
+						}
+					}
+					e.bullets.removeAll(ebulletRemoveList);
+				}	
 			}
 			// Check NPCs
 			for (Birdbot bb : game.bots){
 				ArrayList<Bullet> bulletRemoveList = new ArrayList<Bullet>();
 				for (Bullet b : bb.bullets){
 					if(b.hitbox.intersects(e.hitbox)){
-						e.bulletHit(b.damage);
+						e.loseHealth(b.damage);
 						if(!b.piercing)	bulletRemoveList.add(b);
 					}
 				}
 				bb.bullets.removeAll(bulletRemoveList);
 			}	
-			if(e.isDead() && e.dropcoins) {
-				dropCoin(e.xpos, e.ypos);
+			if(e.isDead()) {
+				if (e.dropAmount > 0 || e.dropMinAmount > 0) dropCoin(e);
 				game.score += e.scoreValue;
 			}
 		}
 	}
 
 	private void checkMobCollision(){
-		ArrayList<BirdEntity> enemyRemoveList = new ArrayList<BirdEntity>();
-		for (BirdEntity e : game.birds){
+		ArrayList<EnemyEntity> enemyRemoveList = new ArrayList<EnemyEntity>();
+		for (EnemyEntity e : game.birds){
 			for (int i = 0; i < game.players.size(); i++){
 				Player p = game.players.get(i);
 				if(p.hitbox.intersects(e.hitbox) && p.health > 0){
 					game.players.get(i).updateHealth(e.dmg);
-					enemyRemoveList.add(e);
+					if(!(e instanceof Boss)) enemyRemoveList.add(e);
 				}
 			}
 			for (Birdbot b : game.bots){
@@ -174,25 +189,33 @@ public class GameManager {
 		game.drops.removeAll(dropRemoveList);
 	}
 
+	private void checkPlayerDropCollision(){
+		for (Player p1 : game.players){
+			if (p1.skin.fspeed == 0){
+				ArrayList<Bullet> bulletRemoveList = new ArrayList<Bullet>();
+				for (Bullet b : p1.bullets){
+					for (Player p2 : game.players){
+						if (p2.hitbox.intersects(b.hitbox)){
+							p2.healHealth(p1.skin.power);
+							bulletRemoveList.add(b);
+						}
+					}
+				}
+				p1.bullets.removeAll(bulletRemoveList);
+			}
+		}
+	}
+
 
 	private void cleanDeadObjects(){
 		// Remove dead mobs
-		ArrayList<BirdEntity> enemyRemoveList = new ArrayList<BirdEntity>();
-		for (BirdEntity e : game.birds){
+		ArrayList<EnemyEntity> enemyRemoveList = new ArrayList<EnemyEntity>();
+		for (EnemyEntity e : game.birds){
 			if (e.xpos < -200 || e.ypos > 700 || e.isDead()){
 				enemyRemoveList.add(e);
 			}
 		}
 		game.birds.removeAll(enemyRemoveList);	
-
-		// Remove dead players
-//		ArrayList<Player> playerRemoveList = new ArrayList<Player>();
-//		for (Player p : game.players){
-//			if (p.health == 0){
-//				playerRemoveList.add(p);
-//			}
-//		}
-//		game.players.removeAll(playerRemoveList);
 
 		// Remove dead bots
 		ArrayList<Birdbot> botRemoveList = new ArrayList<Birdbot>();
@@ -205,40 +228,40 @@ public class GameManager {
 	}
 
 
-	private double botGetDistance(Birdbot bot, BirdEntity en){
+	private double botGetDistance(Birdbot bot, EnemyEntity en){
 		int xposD = Math.abs(bot.xpos - en.xpos);
 		int yposD = Math.abs(bot.ypos - en.ypos);
 		double dist = Math.sqrt(xposD^2 + yposD^2);
 		return dist;
 	}
 
-	private double enemyGetDistance(Player p, BirdEntity en){
+	private double enemyGetDistance(Player p, EnemyEntity en){
 		int xposD = Math.abs(p.xpos - en.xpos);
 		int yposD = Math.abs(p.ypos - en.ypos);
 		double dist = Math.sqrt(xposD^2 + yposD^2);
 		return dist;
 	}
 
-	private boolean checkIfTargeted(BirdEntity enemy){
-		ArrayList<BirdEntity> targets = new ArrayList<BirdEntity>();
+	private boolean checkIfTargeted(EnemyEntity enemy){
+		ArrayList<EnemyEntity> targets = new ArrayList<EnemyEntity>();
 		for (Birdbot BB : game.bots){
-			if(BB.target != null && !BB.target.boss){
+			if(BB.target != null){
 				targets.add(BB.target);
 			}	
 		}
 		return targets.contains(enemy);
 	}
 
-	private BirdEntity botGetTarget(Birdbot bot){
+	private EnemyEntity botGetTarget(Birdbot bot){
 		if (game.birds.isEmpty()) return null;
 		else if(bot.targetCooldown < 100){
 			return bot.target;
 		}
 		else{
-			BirdEntity target = null;
-			for (BirdEntity BE : game.birds){
+			EnemyEntity target = null;
+			for (EnemyEntity BE : game.birds){
 				if(!checkIfTargeted(BE) && (BE.xpos > bot.xpos) &&
-						(BE.xpos - bot.xpos < 800) && BE.targetable && !BE.isDead()){
+						BE.xpos < 1200 && BE.targetPriority > 0 && !BE.isDead()){
 					if(target == null) {
 						target = BE;
 					}
@@ -253,7 +276,7 @@ public class GameManager {
 		}
 	}
 
-	private Player enemyGetTarget(BirdEntity bird){
+	private Player enemyGetTarget(EnemyEntity bird){
 		if (game.players.isEmpty()) return null;
 		else{
 			Player target = null;
@@ -275,18 +298,19 @@ public class GameManager {
 
 	private void updateTargets(){
 		for (Birdbot b : game.bots){
-			b.target = botGetTarget(b);
+			b.target = (EnemyUnit) botGetTarget(b);
 		}
-		for (BirdEntity e : game.birds){
+		for (EnemyEntity e : game.birds){
 			e.playerTarget = enemyGetTarget(e);
 		}
 	}
 
-	private void dropCoin(int x, int y){
+	private void dropCoin(EnemyEntity b){
 		Random RNG = new Random();
-		if (RNG.nextInt(game.dropRate) == 0){
-			int amount = RNG.nextInt(5) + 1;
-			game.drops.add(new CoinDrop(amount, x + 25, y + 25));
+		if (RNG.nextInt(100 / b.droprate) == 0){
+			int amount = RNG.nextInt(b.dropAmount + 1) + b.dropMinAmount;
+			game.drops.add(new CoinDrop(amount, b.xpos + b.sizex / 2 - 25
+					, b.ypos + b.sizey / 2 - 25));
 		}
 	}
 }

@@ -1,0 +1,12 @@
+java.lang.NumberFormatException: For input string: "0		10"
+	at java.lang.NumberFormatException.forInputString(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at mainGUI.SystemData.loadSkins(SystemData.java:145)
+	at mainGUI.SystemData.loadGameData(SystemData.java:45)
+	at mainGUI.MainMenu.main(MainMenu.java:82)
+Exception in thread "main" java.lang.NullPointerException
+	at javax.swing.ImageIcon.<init>(Unknown Source)
+	at mainGUI.GUIPanel.addLabel(GUIPanel.java:63)
+	at mainGUI.MainMenu$mainPanel.<init>(MainMenu.java:141)
+	at mainGUI.MainMenu.main(MainMenu.java:85)

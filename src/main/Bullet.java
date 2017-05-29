@@ -2,6 +2,8 @@ package main;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.Random;
+import java.util.UUID;
 
 import mainGUI.SystemData;
 
@@ -37,7 +39,9 @@ public class Bullet implements Serializable{
 		hitbox = new Rectangle(x, y, bulletSizeX, bulletSizeY);
 				
 		live = true;
-		BPID = (int) ((startX + startY) * Math.random()) * 100;
+		
+		// Random ID
+		BPID = (int) (Math.random() * 100000000);
 	}
 
 	public void move(){

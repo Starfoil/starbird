@@ -1,0 +1,45 @@
+1, Blue Jay, 	3, 0,		10, 20, 0,		5, 0, 100, 65,			0, 3, 0, 0,		25, 1, 4
+Nothing special, but drops decent gold.
+ENDBIO
+2, Bald Eagle, 	6, 2,		15, 20, 0,		6, 0, 125, 70,			750, 3, 0, 0,	10, 1, 2
+Fast, and targets you.
+ENDBIO
+3, Falcon,		9, 0,		25, 10, 0,		8, 0, 110, 60,			0, 3, 0, 0,		10, 1, 2
+Super fast, better be careful.
+ENDBIO
+4, Honey Bee,	7, 2,		10, 5, 0,		3, 0, 90, 70,			0, 3, 250, 0,	0, 0, 0
+Just plain annoying.
+ENDBIO
+5, Hatter, 		3, 0,		30, 50, 0,		15, 0, 110, 95,			0, 3, 0, 0,		100, 10, 15
+Drops alot of coins.
+ENDBIO
+6, Aviator, 	4, 3,		30, 15, 0,		12, 0, 125, 110,		900, 3, -1, 0,	50, 3, 7
+Drops down from the sky, be on the lookout.
+ENDBIO
+7, Spoder, 		1, 0,		150, 100, 50,	75, 0, 160, 140,		0, 3, 0, 0,		100, 5, 10
+Slow but extremely tough to bring down!
+ENDBIO
+8, Wraith, 		3, 3,		25, 10, 0,		10, 0, 125, 125,		0, 3, 0, 0,		0, 0, 0
+Just don't get spooked now.
+ENDBIO
+20, Tomo, 		3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
+Sauce it fam
+ENDBIO
+21, Drunk Tomo, 3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
+Sauce it fam
+ENDBIO
+22, V.Ng, 		3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
+Sauce it fam
+ENDBIO
+23, V.Ng, 		3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
+Sauce it fam
+ENDBIO
+24, R.Ng, 		3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
+Sauce it fam
+ENDBIO
+25, Tim Dong, 	3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
+Sauce it fam
+ENDBIO
+26, R.Ng, 		3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
+Sauce it fam
+ENDBIO

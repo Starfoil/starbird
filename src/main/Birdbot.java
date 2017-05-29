@@ -12,7 +12,7 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 import mainGUI.SystemData;
-import birds.BirdEntity;
+import birds.EnemyUnit;
 
 public class Birdbot implements Serializable{
 	
@@ -26,13 +26,16 @@ public class Birdbot implements Serializable{
 
 	int maxHealth = 200;
 	public int health;
+	int maxMana = 200;
+	public int mana;
+	
 	public Rectangle hitbox;
 	public ArrayList<Bullet> bullets;
 	
 	int cooldown = 0;
 	
 	// Targeting
-	public BirdEntity target;
+	public EnemyUnit target;
 	boolean lockedOn = false;
 	public int targetCooldown = 0;
 	
@@ -47,10 +50,11 @@ public class Birdbot implements Serializable{
 
 	public Birdbot(int skinID){
 		Random RNG = new Random();
-		this.xpos = RNG.nextInt(100) + 10;
-		this.ypos = RNG.nextInt(500) + 50;
+		this.xpos = RNG.nextInt(500) + 10;
+		this.ypos = RNG.nextInt(600) + 50;
 		this.skin = SystemData.getSkin(skinID);
 		this.health = maxHealth;
+		this.mana = maxMana;
 		hitbox = new Rectangle(xpos, ypos, skin.sizeX, skin.sizeY);
 		bullets = new ArrayList<Bullet>();
 	}
@@ -65,6 +69,13 @@ public class Birdbot implements Serializable{
 		move();
 		shoot();
 		targetCooldown += 1;
+		updateMana();
+	}
+	
+	private void updateMana(){
+		if(mana < maxMana){
+			mana += skin.manaRegen;
+		}
 	}
 
 	private void move(){
@@ -96,7 +107,7 @@ public class Birdbot implements Serializable{
 		if(xpos < 25){
 			strafeRight();
 		}
-		else if(xpos > 400){
+		else if(xpos > 1000){
 			strafeLeft();
 		}
 	}
@@ -161,11 +172,12 @@ public class Birdbot implements Serializable{
 
 	private void shoot(){
 		cooldown -= 1;
-		if (cooldown < 0 && target != null && lockedOn){
+		if (cooldown < 0 && target != null && lockedOn && mana >= skin.manaCost){
 			Bullet z = new Bullet(skin.bulletID, xpos + skin.xHBOffset , ypos + skin.yHBOffset, 
 					skin.bulletXSize, skin.bulletYSize, skin.fspeed, skin.power, skin.piercing);
 			bullets.add(z);
 			cooldown = 20 / skin.frate;
+			mana -= skin.manaCost;
 		}
 		updateBullets();
 	}	

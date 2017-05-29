@@ -31,16 +31,16 @@ public class Skin implements Serializable{
 	public int bulletID;
 	public int bulletXSize;
 	public int bulletYSize;
+	public int manaCost;
 	
-
 	
 	public String description;
 	
 	public ImageIcon II;
 	public Image img;
 	
-	int xHBOffset = 0;
-	int yHBOffset = 0;
+	public int xHBOffset = 0;
+	public int yHBOffset = 0;
 	
 	
 	
@@ -63,11 +63,12 @@ public class Skin implements Serializable{
 		this.sizeY = sizeY;
 	}
 	
-	public void setFire(int shootMode, int bulletID, int bulletX, int bulletY){
+	public void setFire(int shootMode, int bulletID, int bulletX, int bulletY, int manaCost){
 		if (shootMode == 0)		canShoot = false;
 		this.bulletID = bulletID;
 		this.bulletXSize = bulletX;
 		this.bulletYSize = bulletY;
+		this.manaCost = manaCost;
 	}
 
 	public void setOffset(int x, int y){

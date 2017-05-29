@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public abstract class GUIPanel extends JPanel{
 	
@@ -60,7 +61,16 @@ public abstract class GUIPanel extends JPanel{
 	
 	public JLabel addLabel(Image img, int x, int y){
 		JLabel label = new JLabel(new ImageIcon(img));
-		label.setBounds(x, y, img.getWidth(label) + 20, img.getHeight(label) + 10);
+		label.setBounds(x, y, img.getWidth(null) + 10, img.getHeight(null) + 10);
+		add(label);	 	
+		return label;
+	}
+	
+	public JLabel addLabel(Image img, int x, int y, int width, int height){
+		JLabel label;
+		if (img != null) 	label = new JLabel(new ImageIcon(img));
+		else 				label = new JLabel();
+		label.setBounds(x, y, width, height);
 		add(label);	 	
 		return label;
 	}
@@ -73,6 +83,15 @@ public abstract class GUIPanel extends JPanel{
 		box.setOpaque(false);
 		add(box);
 		return box;
+	}
+	
+	public JTextField addTextField(String text, Font font, int x, int y, int width, int height){
+		JTextField textField = new JTextField(text);
+		textField.setFont(font);
+		textField.setBounds(x, y, width, height);
+		add(textField);
+		
+		return textField;
 	}
 	
 }

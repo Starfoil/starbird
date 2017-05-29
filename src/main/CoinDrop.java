@@ -4,21 +4,25 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.Serializable;
 
 import mainGUI.SystemData;
 
-public class CoinDrop {
+public class CoinDrop implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 751029918245351881L;
 	int xpos;
 	int ypos;
 	
 	int xspeed 	= 1;
 	int size 	= 50;
 	
-	Rectangle hitbox;
+	public Rectangle hitbox;
 	
-	int amountDrop;
+	public int amountDrop;
 
 	public CoinDrop(int amountDrop, int x, int y) {
 		xpos = x;

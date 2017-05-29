@@ -13,74 +13,104 @@ import main.*;
 
 public class PlayerData {
 
-	//final static File saveFile = new File(System.getenv("APPDATA")+"\\udrewbird.txt");
-	final static File saveFile = new File("data\\data.txt");
+	final static File saveFile = new File(System.getenv("APPDATA")+"\\sauce.txt");
+	//final static File saveFile = new File("data\\data.txt");
 	public static String playerName;
 	public static Skin currentSkin;
 	public static ArrayList<Skin> unlockedSkins;
+	public static Player player;
 
 	public static int coins;	// Default currency
 	public static int stars;	// P2W currency
 
-	public static int level;	// EXP
-	public static int exp;
+	public static int highscore;
+
+	public static String savedIP;
+	public static String savedPort;
 
 	public static void loadData(){
 		if (!saveFile.exists()){
-			playerName = "Default";
-			currentSkin = SystemData.allSkins.get(0);
+			playerName = "Beta Test";
 			unlockedSkins = new ArrayList<Skin>();
+			unlockedSkins.add(SystemData.getSkin(0));
+			unlockedSkins.add(SystemData.getSkin(50));
+			unlockedSkins.add(SystemData.getSkin(51));
+			unlockedSkins.add(SystemData.getSkin(52));
+			unlockedSkins.add(SystemData.getSkin(53));
+			unlockedSkins.add(SystemData.getSkin(54));
+			unlockedSkins.add(SystemData.getSkin(55));
+			currentSkin = unlockedSkins.get(0);
 			coins = 0;
 			stars = 0;
-			exp = 0;
+			highscore = 0;
+			savedIP = "0.0.0.0";
+			savedPort = "0000";
 		}else{
+			loadSaveData();
+		}
+		player = new Player(playerName);
+	}
+
+	public static void saveData(){
+		if (!saveFile.exists()){
 			try {
-				loadSaveData();
+				saveFile.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public static void saveData() throws IOException{
-		if (!saveFile.exists()) saveFile.createNewFile();
-		FileWriter fw = new FileWriter(saveFile.getAbsoluteFile());
-		BufferedWriter bw = new BufferedWriter(fw);
-		bw.write(playerName);
-		bw.newLine();
-		bw.write(Integer.toString(currentSkin.skinID));
-		bw.newLine();
-		bw.write(Integer.toString(coins));
-		bw.newLine();
-		bw.write(Integer.toString(stars));
-		bw.newLine();
-		bw.write(Integer.toString(exp));
-		bw.newLine();
-		for (Skin S : unlockedSkins){
-			bw.write(Integer.toString(S.skinID));
+		
+		try {
+			FileWriter fw = new FileWriter(saveFile.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(playerName);
 			bw.newLine();
+			bw.write(Integer.toString(currentSkin.skinID));
+			bw.newLine();
+			bw.write(Integer.toString(coins));
+			bw.newLine();
+			bw.write(Integer.toString(stars));
+			bw.newLine();
+			bw.write(Integer.toString(highscore));
+			bw.newLine();
+			for (Skin S : unlockedSkins){
+				bw.write(Integer.toString(S.skinID));
+				bw.newLine();
+			}
+			bw.write("ENDSKINS");
+			bw.newLine();
+			bw.write(savedIP);
+			bw.newLine();
+			bw.write(savedPort);
+			bw.newLine();
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		bw.write("ENDSKINS");
-		bw.close();
 	}
 
-	public static void loadSaveData() throws IOException{
-		FileReader fr = new FileReader(saveFile);
-		BufferedReader br = new BufferedReader(fr);
-		
-		playerName = br.readLine();
-		currentSkin = SystemData.getSkin(Integer.parseInt(br.readLine()));
-		coins = Integer.parseInt(br.readLine());
-		stars = Integer.parseInt(br.readLine());
-		exp = Integer.parseInt(br.readLine());
-		
-		String line = null;
-		unlockedSkins = new ArrayList<Skin>();
-		while (!(line = br.readLine()).equals("ENDSKINS")){
-			unlockedSkins.add(SystemData.getSkin(Integer.parseInt(line)));
-		}
-		br.close();
+	public static void loadSaveData(){
+		try{
+			FileReader fr = new FileReader(saveFile);
+			BufferedReader br = new BufferedReader(fr);
 
+			playerName = br.readLine();
+			currentSkin = SystemData.getSkin(Integer.parseInt(br.readLine()));
+			coins = Integer.parseInt(br.readLine());
+			stars = Integer.parseInt(br.readLine());
+			highscore = Integer.parseInt(br.readLine());
+
+			String line = null;
+			unlockedSkins = new ArrayList<Skin>();
+			while (!(line = br.readLine()).equals("ENDSKINS")){
+				unlockedSkins.add(SystemData.getSkin(Integer.parseInt(line)));
+			}
+			savedIP = br.readLine();
+			savedPort = br.readLine();
+			br.close();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 
 }

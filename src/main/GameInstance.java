@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import birds.BirdEntity;
-import birds.BirdManager;
+import mainGUI.SystemData;
+import birds.EnemyEntity;
+import birds.EnemyUnit;
+import birds.Spawner;
 
 public class GameInstance implements Serializable{
 	
@@ -14,10 +16,11 @@ public class GameInstance implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -133591635835713111L;
-	public ArrayList<BirdEntity> birds = new ArrayList<BirdEntity>();
+	public ArrayList<EnemyEntity> birds = new ArrayList<EnemyEntity>();
 	public ArrayList<Player> players = new ArrayList<Player>();
 	public ArrayList<Birdbot> bots = new ArrayList<Birdbot>();
 	public ArrayList<CoinDrop> drops = new ArrayList<CoinDrop>();
+	public ArrayList<Spawner> birdSpawn = new ArrayList<Spawner>();
 	
 	public int gameStatus = 0;
 	public int gameID;
@@ -29,6 +32,7 @@ public class GameInstance implements Serializable{
 	
 	public int gameRunTimer = 0;
 	public int gameEndTimer = 0;
+	public int distance;
 	
 	public GameInstance(){
 		Random RNG = new Random();
@@ -39,42 +43,21 @@ public class GameInstance implements Serializable{
 		bots.add(new Birdbot(skinID));
 	}
 	
-	public void addEnemies(BirdManager m){
-		for (BirdEntity b : m.spawnList){
-			birds.add(b);
-		}
+	public void addSpawn(int eID, int amount, int start, int end){
+		birdSpawn.add(new Spawner(this, eID, amount, start, end));
 	}
-
+	
 	public void addPlayer(Player p){
 		players.add(p);
 	}
 	
-	public void updatePlayer(Player p){
-		if(!existingPlayer(p)){
-			addPlayer(p);
-		}
-		for (int i = 0; i < players.size(); i++){
-			if(players.get(i).ID.equals(p.ID)){
-				players.set(i, p);
-			}
-		}
-	}
-	
-	private boolean existingPlayer(Player p){
-		for (int i = 0; i < players.size(); i++){
-			if(players.get(i).ID.equals(p.ID)){
-				return true;
-			}
-		}
-		return false;
-	}
 		
 	public String toString(){
 		String s = "";
 		for (Player p : players){
 			s += p.toString() + ", ";
 		}
-		for (BirdEntity e : birds){
+		for (EnemyEntity e : birds){
 			s += e.toString() + ", ";
 		}
 		return s;
