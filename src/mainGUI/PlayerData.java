@@ -33,12 +33,9 @@ public class PlayerData {
 			playerName = "Beta Test";
 			unlockedSkins = new ArrayList<Skin>();
 			unlockedSkins.add(SystemData.getSkin(0));
-			unlockedSkins.add(SystemData.getSkin(50));
-			unlockedSkins.add(SystemData.getSkin(51));
-			unlockedSkins.add(SystemData.getSkin(52));
-			unlockedSkins.add(SystemData.getSkin(53));
-			unlockedSkins.add(SystemData.getSkin(54));
-			unlockedSkins.add(SystemData.getSkin(55));
+			unlockedSkins.add(SystemData.getSkin(1));
+			unlockedSkins.add(SystemData.getSkin(2));
+			unlockedSkins.add(SystemData.getSkin(3));
 			currentSkin = unlockedSkins.get(0);
 			coins = 0;
 			stars = 0;
@@ -49,7 +46,7 @@ public class PlayerData {
 			loadSaveData();
 		}
 		player = new Player(playerName);
-		unlockAllSkins();
+		//unlockAllSkins();
 	}
 
 	public static void saveData(){

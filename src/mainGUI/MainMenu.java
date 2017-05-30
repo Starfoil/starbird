@@ -43,7 +43,7 @@ public class MainMenu extends JFrame{
 	/**
 	 * 
 	 */
-	private static final String version = "Beta 1.1";
+	private static final String version = "Beta 1.2";
 	
 	private static final long serialVersionUID = 1L;
 	public static final int XFRAME = 1200;
@@ -77,9 +77,9 @@ public class MainMenu extends JFrame{
 	}
 
 	public static void main(String[] args) throws IOException {
-		//PrintStream out = new PrintStream(new FileOutputStream("errorlog(send to me if crash).txt"));
+		PrintStream out = new PrintStream(new FileOutputStream("errorlog.txt"));
 		//System.setOut(out);
-		//System.setErr(out);
+		System.setErr(out);
 		SystemData.loadGameData();
 		PlayerData.loadData();
 		
