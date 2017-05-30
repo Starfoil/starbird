@@ -6,7 +6,7 @@
 [g4]: https://github.com/Starfoil/Starbird2017/blob/master/resources/game-images/5.PNG
 [g5]: https://github.com/Starfoil/Starbird2017/blob/master/resources/game-images/6.PNG
 
-# ![logo] starbird-project 
+# starbird-project ![logo]
 
 **Lastest Release : 1.2 | 2017-05-29**
  
@@ -25,8 +25,8 @@ You play as a bird trying to take down other birds and get as much points as pos
 
 _Gameplay Images_
 ![g1]
-![g2]
 ![g3]
+![g2]
 ![g5]
 ![g4]
 
@@ -61,7 +61,8 @@ _Gameplay Images_
 
 ### Disclaimer
 
-
+Graphical images and sprites used in this game are not owned by me and belong to their respective owners
+and are of the public domain.
 
 
 
