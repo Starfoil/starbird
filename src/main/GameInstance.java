@@ -47,6 +47,11 @@ public class GameInstance implements Serializable{
 		birdSpawn.add(new Spawner(this, eID, amount, start, end));
 	}
 	
+	public void addSpawn(Spawner s){
+		s.game = this;
+		birdSpawn.add(s);
+	}
+	
 	public void addPlayer(Player p){
 		players.add(p);
 	}

@@ -49,6 +49,7 @@ public class PlayerData {
 			loadSaveData();
 		}
 		player = new Player(playerName);
+		unlockAllSkins();
 	}
 
 	public static void saveData(){
@@ -111,6 +112,11 @@ public class PlayerData {
 		}catch(IOException e){
 			e.printStackTrace();
 		}
+	}
+	
+	public static void unlockAllSkins(){
+		unlockedSkins.removeAll(unlockedSkins);
+		unlockedSkins.addAll(SystemData.allSkins);
 	}
 
 }

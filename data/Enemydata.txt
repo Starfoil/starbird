@@ -22,24 +22,15 @@ ENDBIO
 8, Wraith, 		3, 3,		25, 10, 0,		10, 0, 125, 125,		0, 3, 0, 0,		0, 0, 0
 Just don't get spooked now.
 ENDBIO
-20, Tomo, 		3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
-Sauce it fam
+23, Freezer,	4, 1,		60, 30, 50,		100, 0, 150, 100,		500, 0, 0, 0,		0, 0, 0
+Keepers of the ice mountain.
 ENDBIO
-21, Drunk Tomo, 3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
-Sauce it fam
+24, Ice Bat,	6, 3,		50, 30, 0,		55,	0, 120, 60,			0, 0, 350, 0,		0, 0, 0
+A deadly creature found within arctic regions. 
 ENDBIO
-22, V.Ng, 		3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
-Sauce it fam
+25, Wisp,		5, 0,		40, 15, 0,		3,	0, 75, 60,			0, 0, 0, 0,		0, 0, 0
+The dead spirits that are rumored to guard the mountain.
 ENDBIO
-23, V.Ng, 		3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
-Sauce it fam
-ENDBIO
-24, R.Ng, 		3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
-Sauce it fam
-ENDBIO
-25, Tim Dong, 	3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
-Sauce it fam
-ENDBIO
-26, R.Ng, 		3, 0,		10, 30, 0,		15, 0, 75, 75,		0, 3, 0, 0,		25, 1, 5
-Sauce it fam
+26, Energy,		2, 12,		500, 20, 75,	0, 0, 75, 75,			150, 0, 0, 0,		0, 0, 0	
+Augmented energy released into the air.
 ENDBIO

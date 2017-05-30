@@ -22,6 +22,7 @@ import javax.annotation.Resources;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -137,6 +138,9 @@ public class MainMenu extends JFrame{
 		JLabel coins;
 		JLabel ruby;
 		JLabel highscore;
+		
+		JComboBox<LevelSpawner> levels;
+		
 		public mainPanel(){
 			super();
 			backgroundIMG = SystemData.mainBG;
@@ -157,8 +161,8 @@ public class MainMenu extends JFrame{
 			play.addActionListener(new ActionListener() {	 
 				public void actionPerformed(ActionEvent e){	
 					jtp.removeAll();
-					game = new SingleplayerBoard();
-					game.setLayout(null);
+					LevelSpawner levelSelected =  new LevelSpawner((LevelSpawner) levels.getSelectedItem());
+					game = new SingleplayerBoard(levelSelected);
 					jtp.addTab("Game", game);
 					jtp.addTab("Exit", new JPanel());
 					game.requestFocusInWindow();
@@ -166,12 +170,26 @@ public class MainMenu extends JFrame{
 					play.setIcon(new ImageIcon(SystemData.playButton));
 				}
 			});
+			Font font16 = new Font("Georgia", Font.PLAIN, 16);
+			levels = new JComboBox<LevelSpawner>();
+			levels.setBounds(500, 450, 200, 30);
+			levels.setFont(font16);
+			levels.setMaximumRowCount(5);
+			updateLevels();
+			add(levels);
 		}
 
 		public void updateLabels(){
 			ruby.setText(Integer.toString(PlayerData.stars));
 			coins.setText(Integer.toString(PlayerData.coins));
 			highscore.setText(Integer.toString(PlayerData.highscore));
+		}
+		
+		public void updateLevels(){
+			levels.removeAllItems();
+			for (LevelSpawner ls : SystemData.allLevels){
+				levels.addItem(ls);
+			}
 		}
 	}
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import mainGUI.GUIPanel;
+import mainGUI.LevelSpawner;
 import mainGUI.MainMenu;
 import mainGUI.PlayerData;
 import mainGUI.SystemData;
@@ -25,6 +26,9 @@ public class SingleplayerBoard extends JPanel implements ActionListener{
 
 	int backgroundPos1;
 	int backgroundPos2;
+	Image background;
+	
+	
 	final int scrollSpeed = 2;
 
 	Player p;
@@ -33,67 +37,25 @@ public class SingleplayerBoard extends JPanel implements ActionListener{
 	GameManager gm;
 
 	// Constructor
-	public SingleplayerBoard(){	
-		setupGame();
-		setupObjects();
-		time = new Timer(15, this);
-		time.start();
-	}
-
-	public void setupObjects(){
-		p = new Player(PlayerData.currentSkin.name, -150, 300);
-		game.addPlayer(p);
-		
-		
-		game.addSpawn(30, 1, 100, 100);
-		//game.addSpawn(29, 1, 300, 300);
-//		game.addSpawn(1, 5, 	100, 500);
-//		game.addSpawn(2, 2, 	500, 800);
-//		game.addSpawn(1, 5, 	600, 1000);
-//		game.addSpawn(3, 4, 	900, 1200);
-//		game.addSpawn(1, 8, 	1000, 2000);
-//		game.addSpawn(2, 3,		1500, 2000);
-//		game.addSpawn(4, 10, 	1500, 2000);
-//		game.addSpawn(1, 15, 	2000, 3500);
-//		game.addSpawn(3, 8,		2000, 2500);
-//		game.addSpawn(2, 5,		2500, 3200);
-//		game.addSpawn(3, 3,		3500, 3500);
-//		game.addSpawn(5, 1,		3700, 3700);
-//		game.addSpawn(1, 8, 	4000, 4800);
-//		game.addSpawn(2, 3, 	4400, 4600);
-//		game.addSpawn(4, 25, 	4800, 5200);
-		
-
-		// Bots
-		//game.addBot(18);
-		//game.addBot(21);
-		//game.addBot(24);
-		//game.addBot(50);
-		//game.addBot(51);
-		//game.addBot(52);
-		//game.addBot(53);
-		//game.addBot(54);
-		//game.addBot(55);
-	}
-
-
-	public void setupGame(){
-		this.backgroundPos1 = 0;
-		this.backgroundPos2 = 1200;
-		addKeyListener(new AL());
-		//setFocusable(true);
+	public SingleplayerBoard(LevelSpawner level){	
+		//Setup game
 		game = new GameInstance();
 		gm = new GameManager(game);
-	}
-
-
-	public void updateBackground(){
-		if (backgroundPos1 > 1200){
-			backgroundPos1 = 0;
-			backgroundPos2 = 1200;
-		}
-		backgroundPos1 += scrollSpeed;
-		backgroundPos2 += scrollSpeed;
+		//Setup player
+		p = new Player(PlayerData.currentSkin.name, -150, 300);
+		game.addPlayer(p);
+		//Setup bots
+		//game.addBot(3);
+		//Setup enemies
+		for (Spawner s : level.spawns)	game.addSpawn(s);
+		//Setup background
+		this.background = SystemData.backgroundImages[level.backgroundID];
+		this.backgroundPos1 = 0;
+		this.backgroundPos2 = background.getWidth(null);
+		//Start game
+		addKeyListener(new AL());
+		time = new Timer(15, this);
+		time.start();
 	}
 
 	// During each timer tick
@@ -116,8 +78,8 @@ public class SingleplayerBoard extends JPanel implements ActionListener{
 	public void paint(Graphics g) {
 		//Background
 		g.clearRect(0, 0, MainMenu.XFRAME, MainMenu.YFRAME);
-		g.drawImage(SystemData.backgroundImg, 1200 - backgroundPos1, 0, null);
-		g.drawImage(SystemData.backgroundImg, 1200 - backgroundPos2, 0, null);
+		g.drawImage(background, background.getWidth(null) - backgroundPos1, 0, null);
+		g.drawImage(background, background.getWidth(null) - backgroundPos2, 0, null);
 
 		// Draw health/mana bars
 		g.setColor(Color.red);
@@ -190,6 +152,15 @@ public class SingleplayerBoard extends JPanel implements ActionListener{
 		public void keyPressed(KeyEvent e) {
 			p.keyPressed(e);
 		}
+	}
+	
+	public void updateBackground(){
+		if (backgroundPos1 > background.getWidth(null)){
+			backgroundPos1 = 0;
+			backgroundPos2 = background.getWidth(null);
+		}
+		backgroundPos1 += scrollSpeed;
+		backgroundPos2 += scrollSpeed;
 	}
 	
 	public String toString(){

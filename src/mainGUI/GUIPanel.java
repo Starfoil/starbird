@@ -6,6 +6,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -93,5 +94,6 @@ public abstract class GUIPanel extends JPanel{
 		
 		return textField;
 	}
+	
 	
 }

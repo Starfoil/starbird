@@ -12,6 +12,8 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 import mainGUI.SystemData;
+import birds.Boss;
+import birds.EnemyEntity;
 import birds.EnemyUnit;
 
 public class Birdbot implements Serializable{
@@ -35,7 +37,7 @@ public class Birdbot implements Serializable{
 	int cooldown = 0;
 	
 	// Targeting
-	public EnemyUnit target;
+	public EnemyEntity target;
 	boolean lockedOn = false;
 	public int targetCooldown = 0;
 	
@@ -80,7 +82,7 @@ public class Birdbot implements Serializable{
 
 	private void move(){
 		if(target != null){
-			if(target.boss) retreat();
+			if(target instanceof Boss) retreat();
 			else{
 				moveX();
 				moveY();	
