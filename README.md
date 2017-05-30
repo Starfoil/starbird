@@ -9,6 +9,8 @@
 # starbird-project ![logo]
 
 **Lastest Release : 1.2 | 2017-05-29**
+
+_Multiplayer is  disabled in release 1.2 and will be fixed soon. Limited level selection for now until I add more._
  
  ![b1]
  
