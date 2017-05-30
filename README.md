@@ -1,13 +1,16 @@
 [logo]: https://github.com/Starfoil/Starbird2017/blob/master/resources/Skins/Player.png
+[b1]: https://github.com/Starfoil/Starbird2017/blob/master/resources/Enemies/bird11.png
 [g1]: https://github.com/Starfoil/Starbird2017/blob/master/resources/game-images/1.PNG
 [g2]: https://github.com/Starfoil/Starbird2017/blob/master/resources/game-images/2.PNG
 [g3]: https://github.com/Starfoil/Starbird2017/blob/master/resources/game-images/3.PNG
 [g4]: https://github.com/Starfoil/Starbird2017/blob/master/resources/game-images/5.PNG
 [g5]: https://github.com/Starfoil/Starbird2017/blob/master/resources/game-images/6.PNG
 
-# starbird-project ![titlebanner][logo]
+# ![logo] starbird-project 
 
 **Lastest Release : 1.2 | 2017-05-29**
+ 
+ ![b1]
  
 --- 
  
