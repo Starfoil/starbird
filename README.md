@@ -1,4 +1,9 @@
-[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png
+[logo]: https://github.com/Starfoil/Starbird2017/blob/master/resources/Skins/Player.png
+[g1]: https://github.com/Starfoil/Starbird2017/blob/master/resources/game-images/1.PNG
+[g2]: https://github.com/Starfoil/Starbird2017/blob/master/resources/game-images/2.PNG
+[g3]: https://github.com/Starfoil/Starbird2017/blob/master/resources/game-images/3.PNG
+[g4]: https://github.com/Starfoil/Starbird2017/blob/master/resources/game-images/5.PNG
+[g5]: https://github.com/Starfoil/Starbird2017/blob/master/resources/game-images/6.PNG
 
 # starbird-project ![titlebanner][logo]
 
@@ -7,8 +12,7 @@
 --- 
  
 ### About
-Starbird is a personal Java-based 2D-shooter game that I started back in highschool, recently going back to it in May 2017.
-Over the years, I've started to implement more functionality to the game as my programming skills expanded, using git as the project's version control.
+Starbird is a personal Java based 2D side-scrolling shooter game that I started back in highschool, recently going back to it in May 2017. Over the years, I've started to implement more functionality to the game as my programming skills expanded, using git as the project's version control.
 
 ### Usage
 The project is exported through a .jar file which can be simply executed as long as you have Java installed on your system. Find the latest release above. There's no need for further installation.
@@ -16,23 +20,29 @@ The project is exported through a .jar file which can be simply executed as long
 ### Game overview
 You play as a bird trying to take down other birds and get as much points as possible. Over the levels, you collects coins to buy better skins and upgrade your character so you can further progress to more difficult levels. Indeed, a very cliche arcade-rpg game.
 
-_Images_
-
+_Gameplay Images_
+![g1]
+![g2]
+![g3]
+![g5]
+![g4]
 
 ### To-do list
 * fix networking issues (routing issue outside LAN, ports)
 * fix the AI-bots system
 * write some better description for the mobs
 * add more story to the game
-* a level, adventure-mode system
+* ~~a level, adventure-mode system~~
 * rework some mob skins
 * add documentation (yikes...)
 * reformat some of the code
+* ~~better spawn system~~
 * shop panel, a way to buy new skins
 * rework hitbox system, cause it sucks
 * resolution change? (rework the layouts)
 * animations! and make my own sprites and artwork
 ### Changes
+- 2017-05-30 : Added level selection, adventure mode!
 - 2017-05-29 : Updated history change list into github... about time
 - 2017-05-28 : Added boss mobs to game, better optimizaton for low-end CPUs
 - 2017-05-26 : Reworked mob-spawn system (spawner objects) / complete mob overhaul, no more hard-coded numbers
