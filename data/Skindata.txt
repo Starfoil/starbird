@@ -9,7 +9,7 @@ to be flipped, and even for that you're going to need some strong hands.
 
 Rating Tier : C-
 ENDBIO
-1, Lightning, 	8, 6, 	6,  0, 	15, 2, 	0, 2.0, 		110, 75, 95, 20,		1, 0, 40, 40, 50
+1, Lightning, 	6, 5, 	6,  0, 	15, 2, 	0, 2.0, 		110, 75, 95, 20,		1, 0, 40, 40, 50
 The school's #1 flying ace, picking up gold in every competition he's been in there's little
 wonder as to why the school's president has named him honour student of the year and has
 his picture posted across campus using his distinguished rep as a sully way to raise the
@@ -37,7 +37,7 @@ crap out of everything.
 
 Rating Tier : C+
 ENDBIO
-3, Flammy, 	6, 5, 	15, 0, 	12, 2, 	20, 1.50, 		125, 90, 95, 40,		1, 0, 40, 40, 50
+3, Flammy, 	4, 4, 	15, 0, 	12, 2, 	20, 1.50, 		125, 90, 95, 40,		1, 0, 40, 40, 50
 With those flamming new looks and super hot style, one can see this guy got all brand new
 kicks for school. Some say he's so lit even his teachers call him Super Hot Fire while
 other shrug it off in envy. But just saying, this dude leaves a fiery trial everywhere he 
@@ -76,8 +76,6 @@ Rating Tier : C
 ENDBIO
 7, Ghost, 	6, 5, 	0, 0, 	1, 1, 	0, 0, 			100, 75, 0, 0,			0, 0, 0, 0, 0
 A system error has occured. You cannot obtain this skin. What the hell?
-ENDBIO
-16, Blitzcrank, 4, 3, 	0, 0, 	0, 0, 0, 0, 			155, 135, 50, 40,		0, 0, 0, 0, 0
 ENDBIO
 17, Zed, 	5, 9, 	30, 0, 	30, 2, 	20, 1.00, 		150, 130, 70, 60,		1, 9, 50, 50, 50
 The unseen blade is the deadliest.
@@ -132,120 +130,13 @@ Anyhow, lets hope you kept your master ball this time...
 
 Rating Tier : S
 ENDBIO
-26, Jirachi, 	10, 8, 	0, 0, 	0, 0, 	30, 0, 			110, 120, 0, 0,		0, 0, 0, 0, 50
-Cannot shoot
-
-Rating Tier : S
-ENDBIO
 29, Ice, 		4, 6, 	3, 1, 	15, 2, 	99, 4.00, 		360, 220, 160, 95,		1, 15, 180, 100, 100
 To do bio. ICEEE!
 
 Rating Tier : S+
 ENDBIO
 30, Blue Eyes White Dragon, 	5, 7, 	60, 0, 	10, 1, 	99, 3.50, 		360, 220, 310, 130,	1, 7, 60, 50, 50
-"My grandfather's deck has no pathetic cards."
+3000ATK 2500DEF
 
 Rating Tier : S+
-ENDBIO
-31, Dragon Rider, 4, 3, 	0, 0, 	0, 0, 0, 0, 			350, 260, 0, 0,		0, 0, 0, 0, 50
-ENDBIO
-34, Lugia, 			9, 6, 	25, 0, 	12, 2, 	30, 2.00, 	125, 100, 0, 0,		1, 6, 80, 40, 50
-It's a battle, win or lose.
-ENDBIO
-42, Exodia,	 1, 1, 		0, 0, 	0, 0, 	0, 0, 		550, 700, 0, 0,		0, 0, 0, 0, 0
-ENDBIO
-50, Sum, 	3, 4, 		1, 1, 	12, 1, 	50, 1.50, 	75, 95, 0, 0,		1, 15, 180, 100, 150
-Sum, the Dragonslayer
-
-Sum was one of Lord Begerius's most trusted knights, and one of the first men to
-get knighted by the throne. Believed to be the captain to the Chrononauts of the
-round table, Sum was granted royal pardon over his past demeanors involving minors.
-
-Troubled by his past and determined to vindicate his wrongdoings, Sum undertook a
-task in which no other would dare, to shed the blood of a living dragon and claim
-its head, a task he was barely able to manage before he was viciously wounded.
-
-It is unclear as to how Sum survived the battle against Dragonamy but whispers from
-the outside has it that Sum has now assembled an army of crusaders to the West and is
-ready to take up arms against the dragon once more in hopes of truly slaying it this
-time.
-ENDBIO
-51, Dequan, 	3, 5, 	1, 1, 	12, 1, 	0, 0.75, 		80, 100, 60, 40,		1, 5, 275, 50, 75
-Dequan, the Electrified
-
-One day walking back from school Dequan stumbled into a freak accident where an
-electrical transformer fell onto the ground alongside live wires instantly frying
-everyone unfortunate enough to be caught under the wires, everyone but Dequan.
-
-Days later when he woke up from his coma, he felt jolts of energy running through
-his veins. Thinking it was only due to the medication and painkillers he was given, 
-Dequan paid it no attention and quickly returned home when he was fully recovered.
-
-Soon enough, he had come to realize he now possesses superhuman power through the means
-of electricity. The accident has granted him the power to store and discharge large
-amounts of electric energy, a power he soon comes to relish as he starts to cleanse 
-society from ones in which he has come to hate most, N's...
-ENDBIO
-52, Samumind, 	5, 7, 	15, 0, 	25, 2, 	0, 1.50, 		95, 120, 70, 35,		1, 9, 50, 50, 30
-Samumind, the First Ronin
-
-Having the impeccable mind of a true samurai, Samumind was destined to climb the
-ranks of the Ancient Masters. Soon as he ascended his way up, he was shunned and
-ousted by his own clan in fear that he would grow stronger than his own masters.
-
-Having been stabbed in the back by his own, Samumind would not let their betrayal
-slip away. Returning to his clan, Samumind entered his old palace with blade in hand,
-where he condemned their disloyalty and challenged his lord master to a duel as
-retribution. When the lord refused, Samumind named him a coward and struck him down
-in front of his very brothers. 
-
-Appalled by their lord's murder, the palace took up arms against Samumind and
-a battle ensued. Soon after dusk as the sound of steel slowly died out around
-the palace, it was rumored that only one survived the bloodshed, the very same
-one that entered the day.
-ENDBIO
-53, Ihallaw, 	2, 5, 	1, 0, 	15, 20, 10, 0.0, 		95, 120, 50, 50,		1, 10, 30, 25, 0
-Ihallaw, the Savant
-
-Rumors has it that Ihallaw isn't in fact real at all and is nothing more than
-a mathematical construct.
-ENDBIO
-54, Gray, 	4, 5, 	5, 0, 	14, 5, 	40, 3.00, 		100, 115, 60, 50,		1, 13, 60, 50, 25
-DJ Gr4y, the Record Producer
-
-Impatient to drop his new album, DJ Gr4y has been staying up long hours at night
-working hard to develop the next new viral beats. His one-hit wonder "BGs ft. Udrew"
-has already been a smash and took the music industry by storm as it soared up the
-music charts.
-
-Now with no sign of stopping, DJ Gr4y has recently leaked some of his upcoming soundtracks
-and the fans have already got themselves lining up. With only weeks until the release
-of his next mixtape "BGs and Booze", the internet has already predicted its peak to 
-number one on the Chart Top 40s and Billboard Top 100s.
-
-Needless to say, his fans absolutely love him and will stop at nothing to get their hands 
-on DJ Gr4y's next hot album as it is anticipated to drop in the coming weeks.
-
-Stay tuned!
-ENDBIO
-55, Udrew, 	5, 5, 	50, 0, 	0, 1, 	25, 4.00, 		90, 110, -70, 50,		1, 11, 60, 60, 400
-Udrew, M.D
-
-After graduating university with doctorate degree in medicine, Udrew went on to complete
-medical school where he was then accepted into a neurosurgery program, where he served a
-year as a surgical intern and five years in residency, completing his final year as chief
-resident.
-
-As a neurosurgeon with skilled hand-eye coordination, he specialized in brain cancer and was
-said to be on the brink of a medical breakthrough in cancer research when he was unfortunately
-diagnosed with stage 4 neuroblastoma in a tragic case of irony. 
-
-With no other options, Udrew tasked his surgical team to daringly perform a task never done 
-before, to conduct a full human brain transplant, a procedure that was said to be impossible.
-Miraculously, the operation was a success and Udrew was given the healthy brain of a patient
-by the name of Nelson Gao.
-
-Years after his extraordinary survival with neuroblastoma, Udrew now works at the local 
-elementary school as a full-time lunch room supervisor and when asked if he had any regrets
-in life, he simply smiled and said no.
 ENDBIO

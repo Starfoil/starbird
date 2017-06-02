@@ -8,9 +8,9 @@ Something lies frozen beneath the ice.
 ENDBIO
 29, Chronos,	3, 1,		5, 300, 80,		4000, 0, 360, 310,		1200, 0, 200, 0,	100, 8000, 4000
 100, 18, 	170, 25, 	 180, 340, 		-8, 2, 1
-There never stood time.
+Something dwells beneath the shifting sands.
 ENDBIO
 30, Blue Eyes,	4, 2,		5, 250, 40,		2500, 0, 360, 220,		1200, 0, 200, 0,	100, 4000, 2000
 45, 19, 	10, 110, 	 75, 60, 		-12, 75, 0
-My grandfather's deck has no pathetic cards!
+3000ATK 2500DEF
 ENDBIO

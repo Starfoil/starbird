@@ -63,9 +63,7 @@ public class SystemData {
 		backgroundImages[3] = new ImageIcon(SystemData.class.getResource("/Backgrounds/bg3.png")).getImage();
 		backgroundImages[4] = new ImageIcon(SystemData.class.getResource("/Backgrounds/bg4.png")).getImage();
 		backgroundImages[5] = new ImageIcon(SystemData.class.getResource("/Backgrounds/bg5.jpg")).getImage();
-		//backgroundImages[6] = new ImageIcon(SystemData.class.getResource("/Backgrounds/bg6.jpg")).getImage();
-
-		
+				
 		mainBG = new ImageIcon(SystemData.class.getResource("/playPanel.jpg")).getImage();
 		skinBG = new ImageIcon(SystemData.class.getResource("/skinPanel.jpg")).getImage();
 		enemyBG = new ImageIcon(SystemData.class.getResource("/epp.png")).getImage();
@@ -89,15 +87,6 @@ public class SystemData {
 		playerImages[31] = new ImageIcon(SystemData.class.getResource("/Skins/Player31.png")).getImage();
 		playerImages[34] = new ImageIcon(SystemData.class.getResource("/Skins/Player34.png")).getImage();
 		playerImages[42] = new ImageIcon(SystemData.class.getResource("/Skins/Player42.png")).getImage();
-		// CDBGs
-		playerImages[50] = new ImageIcon(SystemData.class.getResource("/cdbg/Sum.png")).getImage();
-		playerImages[51] = new ImageIcon(SystemData.class.getResource("/cdbg/Alex.png")).getImage();
-		playerImages[52] = new ImageIcon(SystemData.class.getResource("/cdbg/Tim.png")).getImage();
-		playerImages[53] = new ImageIcon(SystemData.class.getResource("/cdbg/Ihallaw.png")).getImage();
-		playerImages[54] = new ImageIcon(SystemData.class.getResource("/cdbg/Gray.png")).getImage();
-		playerImages[55] = new ImageIcon(SystemData.class.getResource("/cdbg/Udrew2.png")).getImage();
-		//playerImages[56] = new ImageIcon(SystemData.class.getResource("/cdbg/Gray2.png")).getImage();
-		//playerImages[56] = new ImageIcon(SystemData.class.getResource("/cdbg/Udrew2.png")).getImage();
 		// Bullet Skins
 		bulletImages[0] = new ImageIcon(SystemData.class.getResource("/Bullets/bullet0.png")).getImage();
 		bulletImages[1] = new ImageIcon(SystemData.class.getResource("/Bullets/bullet1.png")).getImage();
