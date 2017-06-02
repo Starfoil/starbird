@@ -10,7 +10,7 @@
 
 **Lastest Release : 1.2.1 Unstable Build | 2017-06-02**
 
-_Multiplayer is  disabled in release 1.2 and will be fixed soon. Limited level selection for now until I add more._
+_Multiplayer is  disabled in release 1.2 and will be fixed soon. Character shop is not avaiable yet and limited level selection for now until I add more._
  
  ![b1]
  
