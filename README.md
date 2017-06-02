@@ -8,7 +8,7 @@
 
 # starbird-project ![logo]
 
-**Lastest Release : 1.2 | 2017-05-29**
+**Lastest Release : 1.2.1 Unstable Build | 2017-06-02**
 
 _Multiplayer is  disabled in release 1.2 and will be fixed soon. Limited level selection for now until I add more._
  
@@ -25,7 +25,11 @@ The project is exported through a .jar file which can be simply executed as long
 ### Game overview
 You play as a bird trying to take down other birds and get as much points as possible. Over the levels, you collects coins to buy better skins and upgrade your character so you can further progress to more difficult levels. Indeed, a very cliche arcade-rpg game.
 
-_Gameplay Images_
+Use arrows keys to move around and spacebar to shoot. Press P to show/hide hitboxes. Game has an auto-save mechanism and exiting mid-game will not save your progress!
+
+_Game has not been fully tested on other systems and OS aside Windows and might have some bugs. Maybe a lot of bugs..._
+
+**Gameplay Images**
 ![g1]
 ![g3]
 ![g2]
@@ -47,6 +51,7 @@ _Gameplay Images_
 * resolution change? (rework the layouts)
 * animations! and make my own sprites and artwork
 ### Changes
+- 2017-06-02 : Tweaks some numbers, and removed some unnecessary objects, release 1.2.1
 - 2017-05-30 : Added level selection, adventure mode!
 - 2017-05-29 : Updated history change list into github... about time
 - 2017-05-28 : Added boss mobs to game, better optimizaton for low-end CPUs
