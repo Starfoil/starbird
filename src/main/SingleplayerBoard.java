@@ -41,11 +41,11 @@ public class SingleplayerBoard extends JPanel implements ActionListener{
 		//Setup game
 		game = new GameInstance();
 		gm = new GameManager(game);
+		gm.initializeGameManager(game);
 		//Setup player
 		p = new Player(PlayerData.currentSkin.name, -150, 300);
 		game.addPlayer(p);
-		//Setup bots
-		//game.addBot(3);
+		
 		//Setup enemies
 		for (Spawner s : level.spawns)	game.addSpawn(s);
 		//Setup background
