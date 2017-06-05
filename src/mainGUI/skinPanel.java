@@ -23,7 +23,7 @@ import main.Skin;
 
 public class skinPanel extends GUIPanel{
 
-	DefaultListModel<Skin> skins = new DefaultListModel<Skin>();
+	public static DefaultListModel<Skin> skins = new DefaultListModel<Skin>();
 	
 	JLabel currentSkinName;
 	JLabel currentSkinX;
@@ -86,7 +86,8 @@ public class skinPanel extends GUIPanel{
 		addLabel("Projectile", 745, 50);
 		bulletImage = addLabel(SystemData.bulletImages[PlayerData.currentSkin.bulletID], 675, 80, 200, 60);
 		
-		updateList();
+		updateL = new skinUpdateList();
+		updateL.updateList();
 	}
 
 	private JScrollPane addScrollList(String label, DefaultListModel<Skin> inv, int x, int y, int width, int height){
@@ -143,12 +144,5 @@ public class skinPanel extends GUIPanel{
 		skinSelectDef.setText("Defense : " + s.defense);
 		skinSelectMr.setText("Mana Regen : " + s.manaRegen);
 		skinSelectImage.setIcon(new ImageIcon(SystemData.playerImages[s.skinID]));
-	}
-
-	private void updateList(){
-		skins.removeAllElements();
-		for (Skin s : PlayerData.unlockedSkins){
-			skins.addElement(s);
-		}
 	}
 }

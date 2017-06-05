@@ -26,7 +26,7 @@ import main.Skin;
 
 public class enemyPanel extends GUIPanel{
 
-	DefaultListModel<EnemyEntity> enemies = new DefaultListModel<EnemyEntity>();
+	public static DefaultListModel<EnemyEntity> enemies = new DefaultListModel<EnemyEntity>();
 	
 	JLabel currentName;
 	JLabel currentX;

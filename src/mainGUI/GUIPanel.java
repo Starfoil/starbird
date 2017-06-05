@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 
 public abstract class GUIPanel extends JPanel{
 	
+	protected UpdateList updateL;
+	
 	Image backgroundIMG;
 	
 	public GUIPanel(){
