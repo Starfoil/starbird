@@ -124,4 +124,12 @@ public abstract class EnemyEntity {
 		move();
 	}
 
+	protected void drawHPBar(Graphics g) {
+		g.setColor(Color.red);
+		int xhploc = (int) (sizex / 2 - maxHP / 2);
+		g.fillRect(xpos + xhploc, ypos + sizey, (int) maxHP, 5);
+		g.setColor(Color.green);
+		g.fillRect(xpos + xhploc, ypos + sizey, (int) hp, 5);
+	}
+
 }

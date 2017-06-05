@@ -193,11 +193,7 @@ public class Boss extends EnemyEntity implements Serializable{
 	@Override
 	public void draw(Graphics g) {
 		if(engage){
-			g.setColor(Color.red);
-			int xhploc = (int) (sizex / 2 - maxHP / 2);
-			g.fillRect(xpos + xhploc, ypos + sizey, (int) maxHP, 5);
-			g.setColor(Color.green);
-			g.fillRect(xpos + xhploc, ypos + sizey, (int) hp, 5);
+			drawHPBar(g);
 		}
 		
 		g.drawImage(SystemData.birdImages[eID], xpos, ypos, null);
