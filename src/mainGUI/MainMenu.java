@@ -144,20 +144,23 @@ public class MainMenu extends JFrame{
 		public mainPanel(){
 			super();
 			backgroundIMG = SystemData.mainBG;
+			addHeaderLabel();
+			addButton();
+			addLevel();
+		}
+
+		private void addLevel() {
 			FontData fontData = FontData.getInstance();
-			Font headerLabelFont = fontData.getFont("Georgia", Font.PLAIN, 32);
-			addLabel(SystemData.rubyIcon, 1050, 20);
-			ruby = addLabel(Integer.toString(PlayerData.stars), headerLabelFont, 1110, 20);
+			Font font16 = fontData.getFont("Georgia", Font.PLAIN, 16);
+			levels = new JComboBox<LevelSpawner>();
+			levels.setBounds(500, 450, 200, 30);
+			levels.setFont(font16);
+			levels.setMaximumRowCount(5);
+			updateLevels();
+			add(levels);
+		}
 
-			addLabel(SystemData.coinImage, 850, 20);
-			coins = addLabel(Integer.toString(PlayerData.coins), headerLabelFont, 910, 20);
-
-			addLabel(SystemData.trophyIcon, 1000, 580);
-			highscore = addLabel(Integer.toString(PlayerData.highscore), headerLabelFont, 1060, 585);
-
-			addLabel(version, 10, 0);
-
-
+		private void addButton() {
 			JButton play = createButton(SystemData.playButton, SystemData.playButtonP, 475, 500, 250, 100);
 			play.addActionListener(new ActionListener() {	 
 				public void actionPerformed(ActionEvent e){	
@@ -171,15 +174,23 @@ public class MainMenu extends JFrame{
 					play.setIcon(new ImageIcon(SystemData.playButton));
 				}
 			});
-			FontData fontData = FontData.getInstance();
-			Font font16 = fontData.getFont("Georgia", Font.PLAIN, 16);
-			levels = new JComboBox<LevelSpawner>();
-			levels.setBounds(500, 450, 200, 30);
-			levels.setFont(font16);
-			levels.setMaximumRowCount(5);
-			updateLevels();
-			add(levels);
 		}
+
+		private void addHeaderLabel() {
+			FontData fontData = FontData.getInstance();
+			Font headerLabelFont = fontData.getFont("Georgia", Font.PLAIN, 32);
+			addLabel(SystemData.rubyIcon, 1050, 20);
+			ruby = addLabel(Integer.toString(PlayerData.stars), headerLabelFont, 1110, 20);
+
+			addLabel(SystemData.coinImage, 850, 20);
+			coins = addLabel(Integer.toString(PlayerData.coins), headerLabelFont, 910, 20);
+
+			addLabel(SystemData.trophyIcon, 1000, 580);
+			highscore = addLabel(Integer.toString(PlayerData.highscore), headerLabelFont, 1060, 585);
+
+			addLabel(version, 10, 0);
+		}
+
 
 		public void updateLabels(){
 			ruby.setText(Integer.toString(PlayerData.stars));
