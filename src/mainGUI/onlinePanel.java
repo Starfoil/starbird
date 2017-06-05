@@ -47,14 +47,11 @@ public class onlinePanel extends GUIPanel{
 	public onlinePanel(){
 		super();
 		backgroundIMG = SystemData.skinBG;
-		addLabel("IP:", font16, 350, 220);
-		addLabel("Port:", font16, 700, 220);
-		addLabel("Name:", font16, 425, 100);
-		connectionStatus = addLabel("", font16, 500, 410);
-		IPaddress = addTextField(PlayerData.savedIP, font24, 350, 250, 300, 50);
-		port = addTextField(PlayerData.savedPort, font24, 700, 250, 100, 50);
-		name = addTextField(PlayerData.playerName, font24, 500, 100, 200, 50);
+		addLabel();
+		addButton();
+	}
 
+	private void addButton() {
 		JButton play = createButton(SystemData.playButton, SystemData.playButtonP, 475, 450, 250, 100);
 		play.addActionListener(new ActionListener() {	 
 			public void actionPerformed(ActionEvent e){	
@@ -74,6 +71,16 @@ public class onlinePanel extends GUIPanel{
 				}
 			}
 		});
+	}
+
+	private void addLabel() {
+		addLabel("IP:", font16, 350, 220);
+		addLabel("Port:", font16, 700, 220);
+		addLabel("Name:", font16, 425, 100);
+		connectionStatus = addLabel("", font16, 500, 410);
+		IPaddress = addTextField(PlayerData.savedIP, font24, 350, 250, 300, 50);
+		port = addTextField(PlayerData.savedPort, font24, 700, 250, 100, 50);
+		name = addTextField(PlayerData.playerName, font24, 500, 100, 200, 50);
 	}
 
 	private boolean updateStatusLabel(){
