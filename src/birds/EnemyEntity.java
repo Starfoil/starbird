@@ -103,7 +103,6 @@ public abstract class EnemyEntity {
 	}
 	
 	public abstract void setSpawn(int x, int y);
-	public abstract void update();
 	public abstract void move();
 	public abstract void draw(Graphics g);
 		
@@ -119,6 +118,18 @@ public abstract class EnemyEntity {
 	
 	public String toString(){
 		return this.name;
+	}
+
+	public void update() {
+		move();
+	}
+
+	protected void drawHPBar(Graphics g) {
+		g.setColor(Color.red);
+		int xhploc = (int) (sizex / 2 - maxHP / 2);
+		g.fillRect(xpos + xhploc, ypos + sizey, (int) maxHP, 5);
+		g.setColor(Color.green);
+		g.fillRect(xpos + xhploc, ypos + sizey, (int) hp, 5);
 	}
 
 }
