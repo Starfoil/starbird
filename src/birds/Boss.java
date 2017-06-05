@@ -118,16 +118,22 @@ public class Boss extends EnemyEntity implements Serializable{
 					bulletX, bulletY, speed, power, piercing);
 			bullets.add(z);
 		}
-		updateBullets();
+		removeBullets();
+		moveBullets();
 	}
-
-	public void updateBullets(){
+	
+	private void removeBullets(){
 		ArrayList<EBullet> removeList = new ArrayList<EBullet>();
 		for (EBullet b : bullets){
 			if(b.x < 0)	removeList.add(b);
-			b.move();
 		}
 		bullets.removeAll(removeList);
+	}
+	
+	private void moveBullets(){
+		for (EBullet b : bullets){
+			b.move();
+		}
 	}
 	
 	public void boundTarget(){
