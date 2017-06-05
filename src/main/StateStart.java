@@ -2,7 +2,7 @@ package main;
 
 import java.util.Random;
 
-public class StateZero implements State {
+public class StateStart implements State {
 	public void perform(GameManager gameManager, GameInstance gameInstance) {
 		Random RNG = new Random();
 		for (Player p : gameInstance.players) {
@@ -10,7 +10,7 @@ public class StateZero implements State {
 			p.movetoY = RNG.nextInt(450) + 75;
 		}
 		gameInstance.gameStatus = 1;
-		gameManager.setState(new StateOne());
+		gameManager.setState(new StateMovingPlayerintoPosition());
 		gameInstance.distance++;
 	}
 	
