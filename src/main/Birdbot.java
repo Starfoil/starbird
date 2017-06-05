@@ -11,6 +11,7 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+import mainGUI.FontData;
 import mainGUI.SystemData;
 import birds.Boss;
 import birds.EnemyEntity;
@@ -158,7 +159,7 @@ public class Birdbot implements Serializable{
 		
 		g.setColor(Color.white);
 		if (SystemData.showHitbox) g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
-		g.setFont(new Font("Arial", Font.PLAIN, 12)); g.setColor(Color.BLACK);
+		g.setFont(FontData.getInstance().getFont("Arial", Font.PLAIN, 12)); g.setColor(Color.BLACK);
 		g.drawString(skin.name, xpos + skin.sizeX / 4, ypos);
 		
 //		g.setColor(Color.red);

@@ -37,11 +37,12 @@ public class onlinePanel extends GUIPanel{
 
 	JButton connectButton;
 
-	Font font14 = new Font("Georgia", Font.PLAIN, 14);
-	Font font16 = new Font("Georgia", Font.PLAIN, 16);
-	Font font18 = new Font("Georgia", Font.PLAIN, 18);
-	Font font24 = new Font("Georgia", Font.PLAIN, 24);
-	Font font32 = new Font("Georgia", Font.PLAIN, 32);
+	FontData fontData = FontData.getInstance();
+	Font font14 = fontData.getFont("Georgia", Font.PLAIN, 14);
+	Font font16 = fontData.getFont("Georgia", Font.PLAIN, 16);
+	Font font18 = fontData.getFont("Georgia", Font.PLAIN, 18);
+	Font font24 = fontData.getFont("Georgia", Font.PLAIN, 24);
+	Font font32 = fontData.getFont("Georgia", Font.PLAIN, 32);
 
 	public onlinePanel(){
 		super();

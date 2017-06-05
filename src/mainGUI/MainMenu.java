@@ -144,7 +144,8 @@ public class MainMenu extends JFrame{
 		public mainPanel(){
 			super();
 			backgroundIMG = SystemData.mainBG;
-			Font headerLabelFont = new Font("Georgia", Font.PLAIN, 32);
+			FontData fontData = FontData.getInstance();
+			Font headerLabelFont = fontData.getFont("Georgia", Font.PLAIN, 32);
 			addLabel(SystemData.rubyIcon, 1050, 20);
 			ruby = addLabel(Integer.toString(PlayerData.stars), headerLabelFont, 1110, 20);
 
@@ -170,7 +171,8 @@ public class MainMenu extends JFrame{
 					play.setIcon(new ImageIcon(SystemData.playButton));
 				}
 			});
-			Font font16 = new Font("Georgia", Font.PLAIN, 16);
+			FontData fontData = FontData.getInstance();
+			Font font16 = fontData.getFont("Georgia", Font.PLAIN, 16);
 			levels = new JComboBox<LevelSpawner>();
 			levels.setBounds(500, 450, 200, 30);
 			levels.setFont(font16);

@@ -42,12 +42,13 @@ public class enemyPanel extends GUIPanel{
 	JLabel currentImage;
 	JTextArea currentDesc;
 	
-	Font font14 = new Font("Georgia", Font.PLAIN, 14);
-	Font font18 = new Font("Georgia", Font.PLAIN, 18);
-	Font font20 = new Font("Georgia", Font.PLAIN, 20);
-	Font font24 = new Font("Georgia", Font.PLAIN, 24);
-	Font font32 = new Font("Georgia", Font.PLAIN, 32);
-	Font font40 = new Font("Georgia", Font.PLAIN, 40);
+	FontData fontData = FontData.getInstance();
+	Font font14 = fontData.getFont("Georgia", Font.PLAIN, 14);
+	Font font18 = fontData.getFont("Georgia", Font.PLAIN, 18);
+	Font font20 = fontData.getFont("Georgia", Font.PLAIN, 20);
+	Font font24 = fontData.getFont("Georgia", Font.PLAIN, 24);
+	Font font32 = fontData.getFont("Georgia", Font.PLAIN, 32);
+	Font font40 = fontData.getFont("Georgia", Font.PLAIN, 40);
 
 	public enemyPanel(){
 		super();

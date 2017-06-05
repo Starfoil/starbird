@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import mainGUI.FontData;
 import mainGUI.GUIPanel;
 import mainGUI.LevelSpawner;
 import mainGUI.MainMenu;
@@ -92,7 +93,7 @@ public class SingleplayerBoard extends JPanel implements ActionListener{
 		
 		// Draw text labels
 		g.setColor(Color.black);
-		g.setFont(new Font("Serif", Font.PLAIN, 24)); 
+		g.setFont(FontData.getInstance().getFont("Serif", Font.PLAIN, 24)); 
 		g.drawImage(SystemData.trophyIcon, 10, 40, null);
 		g.drawString(Integer.toString(game.score), 65, 75);
 		g.drawImage(SystemData.coinImage, 10, 100, null);
@@ -125,9 +126,9 @@ public class SingleplayerBoard extends JPanel implements ActionListener{
 			g.drawImage(SystemData.defeatIcon, 500, 150, null);
 			g.drawImage(SystemData.trophyIcon, 550, 375, null);
 			g.drawImage(SystemData.coinImage, 550, 445, null);
-			g.setFont(new Font("Calibri", Font.BOLD, 28)); 
+			g.setFont(FontData.getInstance().getFont("Calibri", Font.BOLD, 28)); 
 			g.drawString("Defeat", 560, 345);
-			g.setFont(new Font("Arial", Font.PLAIN, 24)); 
+			g.setFont(FontData.getInstance().getFont("Arial", Font.PLAIN, 24)); 
 			g.drawString(Integer.toString(game.score), 610, 410);
 			g.drawString(Integer.toString(game.coinsCollected), 610, 480);
 		}
@@ -136,9 +137,9 @@ public class SingleplayerBoard extends JPanel implements ActionListener{
 			g.drawImage(SystemData.victoryIcon, 500, 150, null);
 			g.drawImage(SystemData.trophyIcon, 550, 375, null);
 			g.drawImage(SystemData.coinImage, 550, 445, null);
-			g.setFont(new Font("Calibri", Font.BOLD, 28)); 
+			g.setFont(FontData.getInstance().getFont("Calibri", Font.BOLD, 28)); 
 			g.drawString("Victory", 555, 345);
-			g.setFont(new Font("Arial", Font.PLAIN, 24)); 
+			g.setFont(FontData.getInstance().getFont("Arial", Font.PLAIN, 24)); 
 			g.drawString(Integer.toString(game.score), 610, 410);
 			g.drawString(Integer.toString(game.coinsCollected), 610, 480);
 		}
