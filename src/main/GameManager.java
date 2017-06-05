@@ -14,10 +14,11 @@ import birds.Spawner;
 public class GameManager {
 
 	private GameInstance game;
-
-
+	private CollisionCheck collisionCheck;
+	
 	public GameManager(GameInstance gameInstance){
 		game = gameInstance;
+		collisionCheck = new CollisionCheck();
 	}
 
 	public void update(){
@@ -36,10 +37,7 @@ public class GameManager {
 	}
 
 	public void checkCollision(){
-		checkBulletCollision();
-		checkMobCollision();
-		checkDropCollision();
-		checkPlayerDropCollision();
+		collisionCheck.checkCollision(game);
 	}
 
 	private void updateStatus(){
@@ -88,7 +86,9 @@ public class GameManager {
 		// All enemies are dead
 		else if(game.gameStatus == 4){
 			update();
-			checkDropCollision();
+			//checkDropCollision();
+			//dropCoinCollision.checkCollision(game);
+			collisionCheck.checkDropCoinCollision(game);
 			game.gameEndTimer += 1;
 		}
 		updateStatus();
@@ -112,100 +112,6 @@ public class GameManager {
 			d.update();
 		}
 	}
-
-	private void checkBulletCollision(){
-		for (EnemyEntity e : game.birds){
-			// Check player
-			for (Player p : game.players){
-				ArrayList<Bullet> bulletRemoveList = new ArrayList<Bullet>();
-				for (Bullet b : p.bullets){
-					if(b.hitbox.intersects(e.hitbox) && p.skin.fspeed != 0){
-						e.loseHealth(b.damage);
-						if(!b.piercing)	{
-							bulletRemoveList.add(b);
-						}
-					}
-				}
-				p.bullets.removeAll(bulletRemoveList);
-				if (e instanceof Boss){
-					ArrayList<EBullet> ebulletRemoveList = new ArrayList<EBullet>();
-					for (EBullet b : e.bullets){
-						if(b.hitbox.intersects(p.hitbox)){
-							p.updateHealth(b.damage);
-							if(!b.piercing)	ebulletRemoveList.add(b);
-						}
-					}
-					e.bullets.removeAll(ebulletRemoveList);
-				}	
-			}
-			// Check NPCs
-			for (Birdbot bb : game.bots){
-				ArrayList<Bullet> bulletRemoveList = new ArrayList<Bullet>();
-				for (Bullet b : bb.bullets){
-					if(b.hitbox.intersects(e.hitbox)){
-						e.loseHealth(b.damage);
-						if(!b.piercing)	bulletRemoveList.add(b);
-					}
-				}
-				bb.bullets.removeAll(bulletRemoveList);
-			}	
-			if(e.isDead()) {
-				if (e.dropAmount > 0 || e.dropMinAmount > 0) dropCoin(e);
-				game.score += e.scoreValue;
-			}
-		}
-	}
-
-	private void checkMobCollision(){
-		ArrayList<EnemyEntity> enemyRemoveList = new ArrayList<EnemyEntity>();
-		for (EnemyEntity e : game.birds){
-			for (int i = 0; i < game.players.size(); i++){
-				Player p = game.players.get(i);
-				if(p.hitbox.intersects(e.hitbox) && p.health > 0){
-					game.players.get(i).updateHealth(e.dmg);
-					if(!(e instanceof Boss)) enemyRemoveList.add(e);
-				}
-			}
-			for (Birdbot b : game.bots){
-				if(b.hitbox.intersects(e.hitbox) && !b.invincible){
-					b.updateHealth(e.dmg);
-					enemyRemoveList.add(e);
-				}
-			}		
-		}
-		game.birds.removeAll(enemyRemoveList);
-	}
-
-	private void checkDropCollision(){
-		ArrayList<CoinDrop> dropRemoveList = new ArrayList<CoinDrop>();
-		for (CoinDrop d : game.drops){
-			for (int i = 0; i < game.players.size(); i++){
-				if(game.players.get(i).hitbox.intersects(d.hitbox)){
-					game.coinsCollected += d.amountDrop;
-					dropRemoveList.add(d);
-				}
-			}	
-		}
-		game.drops.removeAll(dropRemoveList);
-	}
-
-	private void checkPlayerDropCollision(){
-		for (Player p1 : game.players){
-			if (p1.skin.fspeed == 0){
-				ArrayList<Bullet> bulletRemoveList = new ArrayList<Bullet>();
-				for (Bullet b : p1.bullets){
-					for (Player p2 : game.players){
-						if (p2.hitbox.intersects(b.hitbox)){
-							p2.healHealth(p1.skin.power);
-							bulletRemoveList.add(b);
-						}
-					}
-				}
-				p1.bullets.removeAll(bulletRemoveList);
-			}
-		}
-	}
-
 
 	private void cleanDeadObjects(){
 		// Remove dead mobs
@@ -302,15 +208,6 @@ public class GameManager {
 		}
 		for (EnemyEntity e : game.birds){
 			e.playerTarget = enemyGetTarget(e);
-		}
-	}
-
-	private void dropCoin(EnemyEntity b){
-		Random RNG = new Random();
-		if (RNG.nextInt(100 / b.droprate) == 0){
-			int amount = RNG.nextInt(b.dropAmount + 1) + b.dropMinAmount;
-			game.drops.add(new CoinDrop(amount, b.xpos + b.sizex / 2 - 25
-					, b.ypos + b.sizey / 2 - 25));
 		}
 	}
 }
