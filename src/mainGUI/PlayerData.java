@@ -50,13 +50,7 @@ public class PlayerData {
 	}
 
 	public static void saveData(){
-		if (!saveFile.exists()){
-			try {
-				saveFile.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		checkExistsaveFile();
 		
 		try {
 			FileWriter fw = new FileWriter(saveFile.getAbsoluteFile());
@@ -84,6 +78,17 @@ public class PlayerData {
 			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+
+	private static void checkExistsaveFile() {
+		if (!saveFile.exists()){
+			try {
+				saveFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
