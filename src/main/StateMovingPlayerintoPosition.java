@@ -1,8 +1,6 @@
 package main;
 
-import java.util.Random;
-
-public class StateOne implements State {
+public class StateMovingPlayerintoPosition implements State {
 	@Override
 	public void perform(GameManager gameManager, GameInstance gameInstance) {
 		boolean playflag = true;
@@ -15,7 +13,7 @@ public class StateOne implements State {
 		}
 		if (playflag && gameInstance.gameStatus == 1) {
 			gameInstance.gameStatus = 2;
-			gameManager.setState(new StateTwo());
+			gameManager.setState(new StateOngoingGame());
 		}
 		gameInstance.distance++;
 	}
