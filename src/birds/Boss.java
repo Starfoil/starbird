@@ -77,10 +77,6 @@ public class Boss extends EnemyEntity implements Serializable{
 		hitbox = new Rectangle(xpos + offsetX, ypos + offsetY, 75, 75);
 	}
 	
-	public void update(){
-		move();
-	}
-	
 	public void checkMode(){
 		modeCounter += 1;
 		if (modeCounter > strafeTimer && !targetMode){

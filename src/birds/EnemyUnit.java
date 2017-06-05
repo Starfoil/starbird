@@ -56,10 +56,6 @@ public class EnemyUnit extends EnemyEntity implements Serializable{
 	}
 
 	
-	public void update(){
-		move();
-	}
-	
 	public void move(){
 		if (zigFactor > 0){
 			zigzag();

@@ -103,7 +103,6 @@ public abstract class EnemyEntity {
 	}
 	
 	public abstract void setSpawn(int x, int y);
-	public abstract void update();
 	public abstract void move();
 	public abstract void draw(Graphics g);
 		
@@ -119,6 +118,10 @@ public abstract class EnemyEntity {
 	
 	public String toString(){
 		return this.name;
+	}
+
+	public void update() {
+		move();
 	}
 
 }
