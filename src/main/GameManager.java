@@ -12,15 +12,28 @@ import birds.EnemyUnit;
 import birds.Spawner;
 
 public class GameManager {
+	private static GameManager gameManager;
+	
 	private State state;
 	private GameInstance game;
 	private CollisionCheck collisionCheck;
-	//private StateContext stateContext;
+
 	public GameManager(GameInstance gameInstance) {
-		game = gameInstance;
+		//game = gameInstance;
 		collisionCheck = new CollisionCheck();
-		state = new StateZero();
+		state = new StateStart();
 	}
+	public static GameManager getGameManager(GameInstance gameInstance) {
+		if ( gameManager == null) {
+			gameManager = new GameManager(gameInstance);
+		} 
+		return gameManager;
+	}
+	public void initializeGameManager(GameInstance gameInstance) {
+		game = gameInstance;
+		state = new StateStart();
+	}
+	
 	public void setState(State state) {
 		this.state = state;
 	}
