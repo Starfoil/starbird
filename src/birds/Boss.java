@@ -132,10 +132,12 @@ public class Boss extends EnemyEntity implements Serializable{
 	
 	public void boundTarget(){
 		if(playerTarget != null){
-			if (ypos + offsetY > playerTarget.ypos + playerTarget.skin.yHBOffset + 10){
+			boolean isOverTarget = ypos + offsetY > playerTarget.ypos + playerTarget.skin.yHBOffset + 10;
+			boolean isUnderTarget = ypos + offsetY < playerTarget.ypos + playerTarget.skin.yHBOffset - 10;
+			if (isOverTarget){
 				ypos -= yspeed;
 			}
-			else if (ypos + offsetY < playerTarget.ypos + playerTarget.skin.yHBOffset - 10){
+			else if (isUnderTarget){
 				ypos += yspeed;
 			}	
 		}	
