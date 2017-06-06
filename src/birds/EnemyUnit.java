@@ -67,10 +67,12 @@ public class EnemyUnit extends EnemyEntity implements Serializable{
 			
 	public void boundTarget(){
 		if(playerTarget != null){
-			if (ypos > playerTarget.ypos + 10){
+			boolean isOverTarget = ypos > playerTarget.ypos + 10;
+			boolean isUnderTarget = ypos < playerTarget.ypos - 10;
+			if (isOverTarget){
 				ypos -= yspeed;
 			}
-			else if (ypos < playerTarget.ypos - 10){
+			else if (isUnderTarget){
 				ypos += yspeed;
 			}	
 		}	
