@@ -17,7 +17,7 @@ import birds.Boss;
 import birds.EnemyEntity;
 import birds.EnemyUnit;
 
-public class Birdbot implements Serializable{
+public class Birdbot extends Friend implements Serializable{
 	
 	/**
 	 * 
@@ -75,13 +75,13 @@ public class Birdbot implements Serializable{
 		updateMana();
 	}
 	
-	private void updateMana(){
+	public void updateMana(){
 		if(mana < maxMana){
 			mana += skin.manaRegen;
 		}
 	}
 
-	private void move(){
+	public void move(){
 		if(target != null){
 			if(target instanceof Boss) retreat();
 			else{
@@ -173,7 +173,7 @@ public class Birdbot implements Serializable{
 		}
 	}
 
-	private void shoot(){
+	public void shoot(){
 		cooldown -= 1;
 		if (cooldown < 0 && target != null && lockedOn && mana >= skin.manaCost){
 			Bullet z = new Bullet(skin.bulletID, xpos + skin.xHBOffset , ypos + skin.yHBOffset, 
@@ -186,7 +186,7 @@ public class Birdbot implements Serializable{
 	}	
 
 
-	private void updateBullets(){
+	public void updateBullets(){
 		ArrayList<Bullet> removeList = new ArrayList<Bullet>();
 		for (Bullet b : bullets){
 			if(b.x > 1200)	removeList.add(b);
@@ -196,8 +196,8 @@ public class Birdbot implements Serializable{
 	}
 
 
-	public void updateHealth(int rawDamage){
-		int damageRecieved = rawDamage - (rawDamage * skin.defense) / 100;
+	public void updateHealth(double rawDamage){
+		double damageRecieved = rawDamage - (rawDamage * skin.defense) / 100;
 		if (health - damageRecieved > 0){
 			health -= damageRecieved;
 		}
