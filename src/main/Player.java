@@ -12,7 +12,7 @@ import mainGUI.SystemData;
 
 
 //Static Class. Does not have to be instanced.
-public class Player implements Serializable{
+public class Player extends Friend implements Serializable{
 	/**
 	 * 
 	 */
