@@ -6,12 +6,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import mainGUI.FontData;
 import mainGUI.PlayerData;
 import mainGUI.SystemData;
 
 
 //Static Class. Does not have to be instanced.
-public class Player implements Serializable{
+public class Player extends Friend implements Serializable{
 	/**
 	 * 
 	 */
@@ -63,7 +64,7 @@ public class Player implements Serializable{
 		g.drawImage(playerImages[skin.skinID], xpos, ypos, null);
 		
 		if (SystemData.showHitbox) g.drawRect(hitbox.x, hitbox.y, skin.sizeX, skin.sizeY);
-		g.setFont(new Font("Arial", Font.PLAIN, 12)); g.setColor(Color.BLACK);
+		g.setFont(FontData.getInstance().getFont("Arial", Font.PLAIN, 12)); g.setColor(Color.BLACK);
 		g.drawString(ID, xpos + skin.sizeX / 4, ypos);
 
 		for (Bullet b : bullets){

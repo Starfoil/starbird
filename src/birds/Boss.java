@@ -77,10 +77,6 @@ public class Boss extends EnemyEntity implements Serializable{
 		hitbox = new Rectangle(xpos + offsetX, ypos + offsetY, 75, 75);
 	}
 	
-	public void update(){
-		move();
-	}
-	
 	public void checkMode(){
 		modeCounter += 1;
 		if (modeCounter > strafeTimer && !targetMode){
@@ -122,24 +118,32 @@ public class Boss extends EnemyEntity implements Serializable{
 					bulletX, bulletY, speed, power, piercing);
 			bullets.add(z);
 		}
-		updateBullets();
+		removeBullets();
+		moveBullets();
 	}
-
-	public void updateBullets(){
+	
+	private void removeBullets(){
 		ArrayList<EBullet> removeList = new ArrayList<EBullet>();
 		for (EBullet b : bullets){
 			if(b.x < 0)	removeList.add(b);
-			b.move();
 		}
 		bullets.removeAll(removeList);
 	}
 	
+	private void moveBullets(){
+		for (EBullet b : bullets){
+			b.move();
+		}
+	}
+	
 	public void boundTarget(){
 		if(playerTarget != null){
-			if (ypos + offsetY > playerTarget.ypos + playerTarget.skin.yHBOffset + 10){
+			boolean isOverTarget = ypos + offsetY > playerTarget.ypos + playerTarget.skin.yHBOffset + 10;
+			boolean isUnderTarget = ypos + offsetY < playerTarget.ypos + playerTarget.skin.yHBOffset - 10;
+			if (isOverTarget){
 				ypos -= yspeed;
 			}
-			else if (ypos + offsetY < playerTarget.ypos + playerTarget.skin.yHBOffset - 10){
+			else if (isUnderTarget){
 				ypos += yspeed;
 			}	
 		}	
@@ -189,11 +193,7 @@ public class Boss extends EnemyEntity implements Serializable{
 	@Override
 	public void draw(Graphics g) {
 		if(engage){
-			g.setColor(Color.red);
-			int xhploc = (int) (sizex / 2 - maxHP / 2);
-			g.fillRect(xpos + xhploc, ypos + sizey, (int) maxHP, 5);
-			g.setColor(Color.green);
-			g.fillRect(xpos + xhploc, ypos + sizey, (int) hp, 5);
+			drawHPBar(g);
 		}
 		
 		g.drawImage(SystemData.birdImages[eID], xpos, ypos, null);

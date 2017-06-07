@@ -46,20 +46,11 @@ public class EnemyUnit extends EnemyEntity implements Serializable{
 		g.setColor(Color.blue);
 		if (SystemData.showHitbox) g.drawRect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
 
-		g.setColor(Color.red);
-		int xhploc = (int) (sizex / 2 - maxHP / 2);
-		g.fillRect(xpos + xhploc, ypos + sizey, (int) maxHP, 5);
-		g.setColor(Color.green);
-		g.fillRect(xpos + xhploc, ypos + sizey, (int) hp, 5);
+		drawHPBar(g);
 		
 		g.drawImage(SystemData.birdImages[eID], xpos, ypos, null);
 	}
 
-	
-	public void update(){
-		move();
-	}
-	
 	public void move(){
 		if (zigFactor > 0){
 			zigzag();
@@ -76,10 +67,12 @@ public class EnemyUnit extends EnemyEntity implements Serializable{
 			
 	public void boundTarget(){
 		if(playerTarget != null){
-			if (ypos > playerTarget.ypos + 10){
+			boolean isOverTarget = ypos > playerTarget.ypos + 10;
+			boolean isUnderTarget = ypos < playerTarget.ypos - 10;
+			if (isOverTarget){
 				ypos -= yspeed;
 			}
-			else if (ypos < playerTarget.ypos - 10){
+			else if (isUnderTarget){
 				ypos += yspeed;
 			}	
 		}	

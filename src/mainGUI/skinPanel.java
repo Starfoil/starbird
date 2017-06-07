@@ -23,7 +23,7 @@ import main.Skin;
 
 public class skinPanel extends GUIPanel{
 
-	DefaultListModel<Skin> skins = new DefaultListModel<Skin>();
+	public static DefaultListModel<Skin> skins = new DefaultListModel<Skin>();
 	
 	JLabel currentSkinName;
 	JLabel currentSkinX;
@@ -50,12 +50,13 @@ public class skinPanel extends GUIPanel{
 	JLabel skinSelectSize;
 	JLabel skinSelectImage;
 	
-	Font font14 = new Font("Georgia", Font.PLAIN, 14);
-	Font font16 = new Font("Georgia", Font.PLAIN, 16);
-	Font font18 = new Font("Georgia", Font.PLAIN, 18);
-	Font font24 = new Font("Georgia", Font.PLAIN, 24);
-	Font font32 = new Font("Georgia", Font.PLAIN, 32);
-
+	FontData fontData = FontData.getInstance();
+	Font font14 = fontData.getFont("Georgia", Font.PLAIN, 14);
+	Font font16 = fontData.getFont("Georgia", Font.PLAIN, 16);
+	Font font18 = fontData.getFont("Georgia", Font.PLAIN, 18);
+	Font font24 = fontData.getFont("Georgia", Font.PLAIN, 24);
+	Font font32 = fontData.getFont("Georgia", Font.PLAIN, 32);
+	
 	public skinPanel(){
 		super();
 		backgroundIMG = SystemData.skinBG;
@@ -86,7 +87,8 @@ public class skinPanel extends GUIPanel{
 		addLabel("Projectile", 745, 50);
 		bulletImage = addLabel(SystemData.bulletImages[PlayerData.currentSkin.bulletID], 675, 80, 200, 60);
 		
-		updateList();
+		setUpdateListStrategy(new skinUpdateList());
+		updateL.updateList();
 	}
 
 	private JScrollPane addScrollList(String label, DefaultListModel<Skin> inv, int x, int y, int width, int height){
@@ -143,12 +145,5 @@ public class skinPanel extends GUIPanel{
 		skinSelectDef.setText("Defense : " + s.defense);
 		skinSelectMr.setText("Mana Regen : " + s.manaRegen);
 		skinSelectImage.setIcon(new ImageIcon(SystemData.playerImages[s.skinID]));
-	}
-
-	private void updateList(){
-		skins.removeAllElements();
-		for (Skin s : PlayerData.unlockedSkins){
-			skins.addElement(s);
-		}
 	}
 }

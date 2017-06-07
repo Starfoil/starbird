@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 
 public abstract class GUIPanel extends JPanel{
 	
+	protected UpdateList updateL;
+	
 	Image backgroundIMG;
 	
 	public GUIPanel(){
@@ -95,5 +97,7 @@ public abstract class GUIPanel extends JPanel{
 		return textField;
 	}
 	
-	
+	public void setUpdateListStrategy(UpdateList updateListStategy){
+		this.updateL = updateListStategy;
+	}
 }
