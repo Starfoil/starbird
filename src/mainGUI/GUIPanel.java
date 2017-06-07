@@ -97,5 +97,7 @@ public abstract class GUIPanel extends JPanel{
 		return textField;
 	}
 	
-	
+	public void setUpdateListStrategy(UpdateList updateListStategy){
+		this.updateL = updateListStategy;
+	}
 }

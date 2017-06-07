@@ -3,8 +3,10 @@ package main;
 import java.util.ArrayList;
 
 import birds.EnemyEntity;
+import birds.EnemyUnit;
+import birds.Spawner;
 
-public class StateMethods {
+public abstract class StateMethods {
 
 	protected EnemyEntity botGetTarget(Birdbot bot, GameInstance gameInstance) {
 		if (gameInstance.birds.isEmpty())
@@ -69,5 +71,59 @@ public class StateMethods {
 		int yposD = Math.abs(p.ypos - en.ypos);
 		double dist = Math.sqrt(xposD ^ 2 + yposD ^ 2);
 		return dist;
+	}
+
+	protected void removeDeadBots(GameInstance gameInstance) {
+		ArrayList<Birdbot> botRemoveList = new ArrayList<Birdbot>();
+		for (Birdbot b : gameInstance.bots) {
+			if (b.health == 0) {
+				botRemoveList.add(b);
+			}
+		}
+		gameInstance.bots.removeAll(botRemoveList);
+	}
+
+	protected void removeDeadMobs(GameInstance gameInstance) {
+			ArrayList<EnemyEntity> enemyRemoveList = new ArrayList<EnemyEntity>();
+			for (EnemyEntity e : gameInstance.birds) {
+				if (e.xpos < -200 || e.ypos > 700 || e.isDead()) {
+					enemyRemoveList.add(e);
+				}
+			}
+	gameInstance.birds.removeAll(enemyRemoveList);
+		}
+
+	protected void updateObjects(GameInstance gameInstance) {
+		for (CoinDrop d : gameInstance.drops) {
+			d.update();
+		}
+	}
+
+	protected void updateTargets(GameInstance gameInstance) {
+		for (Birdbot b : gameInstance.bots) {
+			b.target = (EnemyUnit) botGetTarget(b, gameInstance);
+		}
+		for (EnemyEntity e : gameInstance.birds) {
+			e.playerTarget = enemyGetTarget(e, gameInstance);
+		}
+	}
+
+	protected void updateBots(GameInstance gameInstance) {
+		for (Birdbot b : gameInstance.bots) {
+			b.update();
+		}
+	}
+
+	protected void updateEnemies(GameInstance gameInstance) {
+		for (EnemyEntity b : gameInstance.birds) {
+			b.update();
+		}
+	}
+
+	protected void spawnEnemies(GameInstance gameInstance) {
+		for (Spawner s : gameInstance.birdSpawn) {
+			if (s.alive)
+				s.spawn();
+		}
 	}
 }

@@ -87,7 +87,7 @@ public class skinPanel extends GUIPanel{
 		addLabel("Projectile", 745, 50);
 		bulletImage = addLabel(SystemData.bulletImages[PlayerData.currentSkin.bulletID], 675, 80, 200, 60);
 		
-		updateL = new skinUpdateList();
+		setUpdateListStrategy(new skinUpdateList());
 		updateL.updateList();
 	}
 
