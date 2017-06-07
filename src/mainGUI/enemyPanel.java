@@ -73,7 +73,9 @@ public class enemyPanel extends GUIPanel{
 		currentDesc = addTextbox("", font14, 50, 420, 600, 400);
 		
 		if (b != null) updateLabels(b);
-		updateList();
+		
+		setUpdateListStrategy(new enemyUpdateList());
+		updateL.updateList();
 	}
 
 	private JScrollPane addScrollList(String label, DefaultListModel<EnemyEntity> inv, int x, int y, int width, int height){
